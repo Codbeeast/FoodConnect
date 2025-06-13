@@ -2,7 +2,7 @@
 import Avatar from './Avatar'
 const Navbar = () => {
   return (
-    <>
+   
       <nav className='lg:w-300 w-112 bg-black text-white flex relative px-4 py-2 mb-1 flex justify-between items-center '>
         <h1>FoodConnect</h1>
         <div className='flex lg:w-50 w-20 absolute lg:left-110 left-35 lg:gap-10 gap-3'>
@@ -15,7 +15,7 @@ const Navbar = () => {
       <Avatar/>
       </div>
       </nav>
-    </>
+    
   )
 }
 
