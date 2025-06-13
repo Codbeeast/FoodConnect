@@ -3,8 +3,8 @@ import { motion } from 'framer-motion'
 
 const Card2 = () => {
   return (
-    <motion.div
-      className="relative mt-8 px-4 lg:w-full w-11/12 z-10"
+    <motion.div className="relative mt-8 px-4 lg:w-full w-11/12 z-10"
+
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -80,7 +80,8 @@ const Card2 = () => {
           <motion.img
             src={img2}
             alt="Donating Food"
-            className="w-full lg:w-1/2 h-64 object-cover rounded-xl shadow-md hover:shadow-lg"
+           className="w-full h-48 sm:h-56 md:h-64 lg:h-64 lg:w-1/2 object-cover rounded-xl shadow-md hover:shadow-lg"
+
             variants={{
               hidden: { opacity: 0, scale: 0.95 },
               visible: { opacity: 1, scale: 1 },
@@ -91,7 +92,8 @@ const Card2 = () => {
           <motion.img
             src={img3}
             alt="Receiving Food"
-            className="w-full lg:w-1/2 h-64 object-cover rounded-xl shadow-md hover:shadow-lg"
+         className="w-full h-48 sm:h-56 md:h-64 lg:h-64 lg:w-1/2 object-cover rounded-xl shadow-md hover:shadow-lg"
+
             variants={{
               hidden: { opacity: 0, scale: 0.95 },
               visible: { opacity: 1, scale: 1 },

@@ -13,15 +13,15 @@ const Navbar = () => {
   const location = useLocation()
 
   return (
-    <nav className="w-full bg-[#0A0E1A] px-6 py-4 flex justify-between items-center shadow-lg">
+<nav className="w-full bg-[#0A0E1A] px-4 sm:px-6 py-4 flex flex-wrap justify-between items-center shadow-lg gap-4">
       {/* Logo */}
       <Link to="/" className="text-2xl font-bold text-[#22D3EE] hover:text-white transition-all duration-300">
         FoodConnect
       </Link>
 
       {/* Nav Links */}
-      <div className="hidden lg:flex gap-6 text-sm font-semibold tracking-wide">
-        {navItems.map((item, index) => {
+<div className="hidden sm:flex flex-wrap gap-4 sm:gap-6 text-sm font-semibold tracking-wide">     
+     {navItems.map((item, index) => {
           const isActive = location.pathname === item.path
           return (
             <motion.div
