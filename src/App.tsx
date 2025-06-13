@@ -2,7 +2,7 @@
 import Card from './components/Card'
 import Navbar from './components/Navbar'
 import Card2 from './components/Card2';
-import {ModeToggle} from './components/ModeToggle'
+// import {ModeToggle} from './components/ModeToggle'
 import {Routes,Route} from 'react-router-dom'
 
 const App = () => {
