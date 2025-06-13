@@ -12,6 +12,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["node"],
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "target": "ESNext",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   }
 }
