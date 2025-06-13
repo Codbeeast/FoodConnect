@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 const Card = () => {
   return (
     <motion.div
-      className="relative rounded-2xl overflow-hidden w-full max-w-[98.5%] mx-auto h-[80vh] sm:h-[70vh] md:h-[65vh] mt-3 shadow-2xl"
+      className="relative rounded-2xl overflow-hidden w-full max-w-[98.5%] mx-auto h-[60vh] sm:h-[70vh] md:h-[65vh] mt-3 shadow-2xl mr-1"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7 }}
