@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 const Card2 = () => {
   return (
     <motion.div
-      className="relative w-full max-w-7xl mx-auto px-4  mb-4 z-10"
+      className="relative w-full max-w-7xl mx-auto px-4 mt-4 mb-4 z-10"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
