@@ -1,5 +1,5 @@
-import React from 'react'
-import { img,img2,img3 } from '.././images/Url'
+// import React from 'react'
+import { img2,img3 } from '.././images/Url'
 
 const Card2 = () => {
   return (
