@@ -3,7 +3,7 @@ import { img2,img3 } from '.././images/Url'
 
 const Card2 = () => {
   return (
-    <div className='relative mt-4 p-3 lg:w-300 w-105 '>
+    <div className='relative mt-4 p-3 lg:w-300 w-100 '>
 
     <div className='lg:h-110 lg:w-290 w-full ml-0.5  px-4 py-4 mb-2 p-5 absolute lg:left-6 border-gray-400 border flex flex-col gap-4 rounded-xl'>
       <div className='flex text-white justify-between gap-5'>
