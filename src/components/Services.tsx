@@ -3,7 +3,7 @@
 const Services = () => {
   return (
     <div>
-     <section id="services" className="py-20 bg-white text-gray-800 px-6 scroll-mt-24">
+     <section id="services" className="py-30 bg-white text-gray-800 px-6 scroll-mt-24">
   <div className="max-w-6xl mx-auto text-center">
     <h2 className="text-3xl font-bold text-[#0EA5E9] mb-6">Our Services</h2>
     <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-10">

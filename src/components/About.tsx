@@ -3,7 +3,7 @@
 const About = () => {
   return (
     <div>
-      <section id="about" className="py-20 bg-[#0F172A] text-white px-6 scroll-mt-24">
+      <section id="about" className="py-28 bg-[#0F172A] text-white px-6 scroll-mt-24">
   <div className="max-w-6xl mx-auto text-center">
     <h2 className="text-3xl font-bold text-[#22D3EE] mb-6">About Us</h2>
     <p className="text-lg leading-relaxed text-gray-300 max-w-3xl mx-auto">
