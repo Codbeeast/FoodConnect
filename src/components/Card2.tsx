@@ -1,29 +1,107 @@
-// import React from 'react'
-import { img2,img3 } from '.././images/Url'
+import { img2, img3 } from '.././images/Url'
+import { motion } from 'framer-motion'
 
 const Card2 = () => {
   return (
-    <div className='relative mt-4 p-3 lg:w-full w-93 '>
+    <motion.div
+      className="relative mt-8 px-4 lg:w-full w-11/12 z-10"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <div className="relative bg-[#0F172A] text-white shadow-xl p-8 rounded-2xl border border-[#1E293B] flex flex-col gap-8">
+        {/* Title */}
+        <motion.h2
+          className="text-3xl font-bold text-center bg-gradient-to-r from-[#22D3EE] to-[#22C55E] bg-clip-text text-transparent"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+        >
+          How FoodConnect Works
+        </motion.h2>
 
-    <div className='lg:h-110 lg:w-[96%] w-full ml-0.5  px-4 py-4 mb-2 p-5 absolute lg:left-6 border-gray-400 border flex flex-col gap-4 rounded-xl'>
-      <div className='flex text-white justify-between gap-10'>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit aliquid aperiam vel eaque officiis quis deleniti repudiandae in velit itaque. Totam quibusdam excepturi nisi voluptatem perferendis, animi deleniti molestias sit.</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam tempora veniam quos ea dolorem molestiae, sequi error, porro nobis cupiditate minus temporibus. Quo similique sapiente maxime voluptatem fugit illo distinctio!</p>
-        </div>
-        <div className='w-full h-37 flex gap-3 lg:gap-14'>
-        <img
-          src={img2}
-          alt=""
-          className="lg:w-150 lg:h-81 w-50 h-40 rounded-xl"
-        />
-        <img
-          src={img3}
-          alt=""
-          className="lg:w-130 lg:h-80 w-33 h-30 rounded-xl"
+        {/* Info Sections */}
+        <motion.div
+          className="flex flex-col lg:flex-row gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            visible: {
+              transition: { staggerChildren: 0.3 },
+            },
+          }}
+        >
+          <motion.div
+            className="flex-1 space-y-3 text-base leading-relaxed text-slate-300"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 },
+            }}
+          >
+            <h3 className="text-lg font-semibold text-[#38BDF8]">For Donors</h3>
+            <ul className="list-disc list-inside">
+              <li>Upload food details with a photo</li>
+              <li>AI analyzes freshness from image/date</li>
+              <li>Set pickup location & time availability</li>
+            </ul>
+          </motion.div>
+
+          <motion.div
+            className="flex-1 space-y-3 text-base leading-relaxed text-slate-300"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 },
+            }}
+          >
+            <h3 className="text-lg font-semibold text-[#22C55E]">For NGOs / Individuals</h3>
+            <ul className="list-disc list-inside">
+              <li>Get notified when food is available nearby</li>
+              <li>Filter by freshness, location, urgency</li>
+              <li>Request pickup or contact the donor</li>
+            </ul>
+          </motion.div>
+        </motion.div>
+
+        {/* Images */}
+        <motion.div
+          className="w-full h-auto flex flex-col lg:flex-row gap-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            visible: {
+              transition: { staggerChildren: 0.2 },
+            },
+          }}
+        >
+          <motion.img
+            src={img2}
+            alt="Donating Food"
+            className="w-full lg:w-1/2 h-64 object-cover rounded-xl shadow-md hover:shadow-lg"
+            variants={{
+              hidden: { opacity: 0, scale: 0.95 },
+              visible: { opacity: 1, scale: 1 },
+            }}
+            whileHover={{ scale: 1.03 }}
+            transition={{ duration: 0.3 }}
           />
+          <motion.img
+            src={img3}
+            alt="Receiving Food"
+            className="w-full lg:w-1/2 h-64 object-cover rounded-xl shadow-md hover:shadow-lg"
+            variants={{
+              hidden: { opacity: 0, scale: 0.95 },
+              visible: { opacity: 1, scale: 1 },
+            }}
+            whileHover={{ scale: 1.03 }}
+            transition={{ duration: 0.3 }}
+          />
+        </motion.div>
       </div>
-    </div>
-          </div>
+    </motion.div>
   )
 }
 

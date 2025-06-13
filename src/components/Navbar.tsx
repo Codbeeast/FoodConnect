@@ -1,25 +1,56 @@
-// import React from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import Avatar from './Avatar'
+
+const navItems = [
+  { name: 'Home', path: '/' },
+  { name: 'About Us', path: '/about' },
+  { name: 'Services', path: '/services' },
+  { name: 'Contact', path: '/contact' },
+]
+
 const Navbar = () => {
+  const location = useLocation()
+
   return (
-   
-     <nav className="lg:w-full w-[93vw] bg-black text-white flex px-4 py-2 mb-1  justify-between items-center">
-  <h1>FoodConnect</h1>
+    <nav className="w-full bg-[#0A0E1A] px-6 py-4 flex justify-between items-center shadow-lg">
+      {/* Logo */}
+      <Link to="/" className="text-2xl font-bold text-[#22D3EE] hover:text-white transition-all duration-300">
+        FoodConnect
+      </Link>
 
-  <div className="flex gap-2 lg:gap-10">
-    <p>Home</p>
-    <p>About</p>
-    <p>Services</p>
-    <p>Contact</p>
-  </div>
+      {/* Nav Links */}
+      <div className="hidden lg:flex gap-6 text-sm font-semibold tracking-wide">
+        {navItems.map((item, index) => {
+          const isActive = location.pathname === item.path
+          return (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.97 }}
+              className="cursor-pointer"
+            >
+              <Link
+                to={item.path}
+                className={`px-3 py-2 rounded-md transition-all duration-300 ${
+                  isActive
+                    ? 'bg-[#22D3EE]/10 text-[#22D3EE] border-b-2 border-[#22D3EE]'
+                    : 'text-gray-300 hover:text-[#22D3EE]'
+                }`}
+              >
+                {item.name}
+              </Link>
+            </motion.div>
+          )
+        })}
+      </div>
 
-  <div className="ml-3">
-    <Avatar />
-  </div>
-</nav>
-    
+      {/* Avatar */}
+      <div className="ml-4">
+        <Avatar />
+      </div>
+    </nav>
   )
 }
 
 export default Navbar
-

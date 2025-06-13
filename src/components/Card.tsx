@@ -1,17 +1,27 @@
-// import React from 'react'
 import { img } from '.././images/Url'
+import { motion } from 'framer-motion'
 
 const Card = () => {
   return (
-    
-      <div className=' lg:w-[98.5%] w-95 rounded-xl m-2  h-85 bg-black relative overflow-hidden'>
-        <img
-          src={img}
-          alt=""
-          className="absolute inset-0 w-full lg:w-full h-full object-center object-cover"
-        />
-     
-    </div>
+    <motion.div
+      className="relative rounded-2xl overflow-hidden lg:w-[98.5%] w-11/12 h-96 m-4 shadow-lg"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+    >
+      <img
+        src={img}
+        alt="Food Donation Banner"
+        className="absolute inset-0 w-full h-full object-cover brightness-50"
+      />
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-6 text-center">
+        <h1 className="text-3xl lg:text-4xl font-bold mb-3 text-[#38BDF8]">Welcome to FoodConnect</h1>
+        <p className="text-lg max-w-2xl">
+          Connecting surplus food from restaurants, hotels, and households to NGOs and individuals in need — 
+          with AI-powered freshness checks and pickup coordination.
+        </p>
+      </div>
+    </motion.div>
   )
 }
 
