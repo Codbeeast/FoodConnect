@@ -11,7 +11,7 @@ const Navbar = () => {
        <p>Services</p>
        <p>Contact</p>
       </div>
-      <div className=''>
+      <div className='ml-3'>
       <Avatar/>
       </div>
       </nav>
