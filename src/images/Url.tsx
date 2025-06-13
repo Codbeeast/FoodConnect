@@ -1,0 +1,3 @@
+export const img='https://plus.unsplash.com/premium_photo-1673108852141-e8c3c22a4a22?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+export const img2='https://media.istockphoto.com/id/139496979/photo/assortment-of-fruits-and-vegetables-background.jpg?s=1024x1024&w=is&k=20&c=KcFM8yH2vc3SoAIa0CbX2lVuEA61OBgtKFB1Da8um00='
+export const img3='https://images.unsplash.com/photo-1473648717346-73c9c15cbad6?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
