@@ -4,12 +4,11 @@ import Navbar from './components/Navbar'
 import Card2 from './components/Card2';
 const App = () => {
   return (
-    <div>
-<Navbar />
-
-      <Card/>
+    <>
+      <Navbar />
+      <Card />
       <Card2 />
-    </div>
+    </>
   )
 }
 
