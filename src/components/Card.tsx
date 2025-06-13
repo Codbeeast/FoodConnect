@@ -3,24 +3,39 @@ import { motion } from 'framer-motion'
 
 const Card = () => {
   return (
-  <motion.div
-  className="relative rounded-2xl overflow-hidden w-full lg:w-[98.5%] h-72 sm:h-80 md:h-96 mt-1 shadow-lg"
-
+    <motion.div
+      className="relative rounded-2xl overflow-hidden w-full max-w-[98.5%] mx-auto h-[80vh] sm:h-[70vh] md:h-[65vh] mt-3 shadow-2xl"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7 }}
     >
+      {/* Background Image */}
       <img
         src={img}
         alt="Food Donation Banner"
-        className="absolute inset-0 w-full h-full object-cover brightness-50"
+        className="absolute inset-0 w-full h-full object-cover brightness-60"
       />
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-6 text-center">
-      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 text-[#38BDF8]">Welcome to FoodConnect</h1>
-        <p className="text-sm sm:text-base lg:text-lg max-w-2xl">
-          Connecting surplus food from restaurants, hotels, and households to NGOs and individuals in need — 
+
+      {/* Text Content Overlay */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-4 sm:px-8 text-center">
+        <motion.h1
+          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 text-[#38BDF8] drop-shadow-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          Welcome to FoodConnect
+        </motion.h1>
+
+        <motion.p
+          className="text-base sm:text-lg lg:text-xl max-w-3xl leading-relaxed text-slate-200 drop-shadow-md"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          Connecting surplus food from restaurants, hotels, and households to NGOs and individuals in need —
           with AI-powered freshness checks and pickup coordination.
-        </p>
+        </motion.p>
       </div>
     </motion.div>
   )
