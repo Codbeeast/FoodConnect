@@ -1,19 +1,24 @@
-import { img2, img3 } from '.././images/Url'
 import { motion } from 'framer-motion'
 
 const Card2 = () => {
   return (
-    <motion.div className="relative mt-8 px-4 lg:w-full w-11/12 z-10"
-
+    <motion.div
+      className="relative w-full max-w-7xl mx-auto px-4  mb-4 z-10"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
-      <div className="relative bg-[#0F172A] text-white shadow-xl p-8 rounded-2xl border border-[#1E293B] flex flex-col gap-8">
+      <motion.div
+        className="relative min-h-[80vh] bg-[#0f172a99] backdrop-blur-md text-white shadow-2xl p-12 rounded-3xl border border-[#1E293B] flex flex-col gap-16 hover:scale-[1.01] transition-all duration-500"
+        initial={{ opacity: 0.8, scale: 0.98 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+      >
         {/* Title */}
         <motion.h2
-          className="text-3xl font-bold text-center bg-gradient-to-r from-[#22D3EE] to-[#22C55E] bg-clip-text text-transparent"
+          className="text-4xl lg:text-5xl font-extrabold text-center bg-gradient-to-r from-[#22D3EE] to-[#22C55E] bg-clip-text text-transparent"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -24,85 +29,49 @@ const Card2 = () => {
 
         {/* Info Sections */}
         <motion.div
-          className="flex flex-col lg:flex-row gap-8"
+          className="flex flex-col lg:flex-row gap-16"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={{
-            visible: {
-              transition: { staggerChildren: 0.3 },
-            },
+            visible: { transition: { staggerChildren: 0.3 } },
           }}
         >
+          {/* For Donors */}
           <motion.div
-            className="flex-1 space-y-3 text-base leading-relaxed text-slate-300"
+            className="flex-1 space-y-5 text-lg lg:text-xl leading-relaxed text-slate-300"
             variants={{
               hidden: { opacity: 0, y: 20 },
               visible: { opacity: 1, y: 0 },
             }}
           >
-            <h3 className="text-lg font-semibold text-[#38BDF8]">For Donors</h3>
-            <ul className="list-disc list-inside">
-              <li>Upload food details with a photo</li>
-              <li>AI analyzes freshness from image/date</li>
-              <li>Set pickup location & time availability</li>
+            <h3 className="text-2xl font-semibold text-[#38BDF8]">For Donors</h3>
+            <ul className="list-disc list-inside space-y-2">
+              <li>Upload food details with a photo or description</li>
+              <li>AI analyzes freshness based on image/date</li>
+              <li>Set pickup location and time for NGOs</li>
+              <li>Receive confirmation when food is claimed</li>
             </ul>
           </motion.div>
 
+          {/* For NGOs */}
           <motion.div
-            className="flex-1 space-y-3 text-base leading-relaxed text-slate-300"
+            className="flex-1 space-y-5 text-lg lg:text-xl leading-relaxed text-slate-300"
             variants={{
               hidden: { opacity: 0, y: 20 },
               visible: { opacity: 1, y: 0 },
             }}
           >
-            <h3 className="text-lg font-semibold text-[#22C55E]">For NGOs / Individuals</h3>
-            <ul className="list-disc list-inside">
+            <h3 className="text-2xl font-semibold text-[#22C55E]">For NGOs / Individuals</h3>
+            <ul className="list-disc list-inside space-y-2">
               <li>Get notified when food is available nearby</li>
-              <li>Filter by freshness, location, urgency</li>
-              <li>Request pickup or contact the donor</li>
+              <li>Search and filter food based on freshness, urgency, or distance</li>
+              <li>Request pickup with one click</li>
+              <li>Contact donors directly through secure messaging</li>
             </ul>
           </motion.div>
         </motion.div>
-
-        {/* Images */}
-        <motion.div
-          className="w-full h-auto flex flex-col lg:flex-row gap-6"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            visible: {
-              transition: { staggerChildren: 0.2 },
-            },
-          }}
-        >
-          <motion.img
-            src={img2}
-            alt="Donating Food"
-           className="w-full h-48 sm:h-56 md:h-64 lg:h-64 lg:w-1/2 object-cover rounded-xl shadow-md hover:shadow-lg"
-
-            variants={{
-              hidden: { opacity: 0, scale: 0.95 },
-              visible: { opacity: 1, scale: 1 },
-            }}
-            whileHover={{ scale: 1.03 }}
-            transition={{ duration: 0.3 }}
-          />
-          <motion.img
-            src={img3}
-            alt="Receiving Food"
-         className="w-full h-48 sm:h-56 md:h-64 lg:h-64 lg:w-1/2 object-cover rounded-xl shadow-md hover:shadow-lg"
-
-            variants={{
-              hidden: { opacity: 0, scale: 0.95 },
-              visible: { opacity: 1, scale: 1 },
-            }}
-            whileHover={{ scale: 1.03 }}
-            transition={{ duration: 0.3 }}
-          />
-        </motion.div>
-      </div>
+      </motion.div>
     </motion.div>
   )
 }
