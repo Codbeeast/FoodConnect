@@ -2,12 +2,18 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+.active-nav {
+  @apply text-[#22D3EE] border-b-2 border-[#22D3EE] bg-[#22D3EE]/10;
+}
+
+
 @custom-variant dark (&:is(.dark *));
 html{
   background-color: black;
    overflow: scroll; /* or auto */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
+  
 }
 html::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
@@ -132,4 +138,5 @@ html::-webkit-scrollbar {
 
 html {
   font-family: 'Inter', sans-serif;
+     
 }
