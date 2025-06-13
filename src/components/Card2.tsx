@@ -5,16 +5,16 @@ const Card2 = () => {
   return (
     <div className='relative mt-4 p-3 lg:w-full w-93 '>
 
-    <div className='lg:h-110 lg:w-[92%] w-full ml-0.5  px-4 py-4 mb-2 p-5 absolute lg:left-6 border-gray-400 border flex flex-col gap-4 rounded-xl'>
+    <div className='lg:h-110 lg:w-[96%] w-full ml-0.5  px-4 py-4 mb-2 p-5 absolute lg:left-6 border-gray-400 border flex flex-col gap-4 rounded-xl'>
       <div className='flex text-white justify-between gap-10'>
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit aliquid aperiam vel eaque officiis quis deleniti repudiandae in velit itaque. Totam quibusdam excepturi nisi voluptatem perferendis, animi deleniti molestias sit.</p>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam tempora veniam quos ea dolorem molestiae, sequi error, porro nobis cupiditate minus temporibus. Quo similique sapiente maxime voluptatem fugit illo distinctio!</p>
         </div>
-        <div className='w-full h-37 flex gap-3 lg:gap-20'>
+        <div className='w-full h-37 flex gap-3 lg:gap-14'>
         <img
           src={img2}
           alt=""
-          className="lg:w-150 lg:h-89 w-50 h-40 rounded-xl"
+          className="lg:w-150 lg:h-81 w-50 h-40 rounded-xl"
         />
         <img
           src={img3}
