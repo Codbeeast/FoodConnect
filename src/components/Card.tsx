@@ -4,7 +4,7 @@ import { img } from '.././images/Url'
 const Card = () => {
   return (
     
-      <div className=' lg:w-303 w-93 rounded-xl m-2  h-85 bg-black relative overflow-hidden'>
+      <div className=' lg:w-303 w-95 rounded-xl m-2  h-85 bg-black relative overflow-hidden'>
         <img
           src={img}
           alt=""
