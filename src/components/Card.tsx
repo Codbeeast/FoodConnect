@@ -8,7 +8,7 @@ const Card = () => {
         <img
           src={img}
           alt=""
-          className="absolute inset-0 w-full lg:w[98%] h-full object-center object-cover"
+          className="absolute inset-0 w-full lg:w[92%] h-full object-center object-cover"
         />
      
     </div>
