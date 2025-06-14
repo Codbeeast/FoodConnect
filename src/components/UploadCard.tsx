@@ -41,7 +41,9 @@ const baseURL = import.meta.env.VITE_API_URL
       toast.error('❌ Upload failed.')
     }
   } catch (err) {
+    
     toast.error('🚨 Error uploading image.')
+    
   }
 }
 

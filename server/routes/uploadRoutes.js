@@ -16,10 +16,16 @@ const upload = multer({ storage })
 
 // Upload Route
 router.post('/upload', upload.single('image'), async (req, res) => {
+    console.log('errorr')
+    try{
   const imagePath = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`
   const newImage = new Image({ imageUrl: imagePath })
   await newImage.save()
   res.status(201).json(newImage)
+    }catch(err){
+        console.log('error:',err)
+          res.status(500).json({ error: 'Upload failed' });
+    }
 })
 
 // Get all images
