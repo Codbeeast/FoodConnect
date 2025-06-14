@@ -4,7 +4,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import uploadRoutes from './routes/uploadRoutes.js'
-const URL=process.env.MONGODB_url
+const URL=process.env.MONGODB_URL
 const app = express()
 app.use(cors({
   origin: ['http://localhost:5173', 'https://foodconnect-4z1p.onrender.com'],
