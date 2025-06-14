@@ -14,7 +14,10 @@ app.use(cors({
 // Add this before your routes
 app.use(express.json());
 app.use('/uploads', express.static('uploads')) // serve uploaded images
+app.use('/uploads', express.static('/tmp/uploads')) // for Render
+
 app.use('/api', uploadRoutes)
+
 
 mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))

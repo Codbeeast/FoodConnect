@@ -73,7 +73,9 @@ const Card = () => {
       <AnimatePresence>
         {showUpload && <UploadCard onClose={() => setShowUpload(false)} />}
       </AnimatePresence>
+       
     </>
+   
   )
 }
 
