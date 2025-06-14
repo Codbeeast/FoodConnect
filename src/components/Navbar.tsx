@@ -6,8 +6,8 @@ import { Menu, X } from 'lucide-react'
 
 const navItems = [
   { name: 'Home', id: 'home' },
+   { name: 'Services', id: 'services' },
   { name: 'About Us', id: 'about' },
-  { name: 'Services', id: 'services' },
   { name: 'Contact', id: 'contact' },
 ]
 
@@ -44,7 +44,42 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <ScrollLink to="home" smooth={true} duration={500} offset={-80} className="text-2xl font-bold text-[#22D3EE] hover:text-white cursor-pointer">
-          FoodConnect
+          <motion.h1
+  className="flex justify-center text-2xl sm:text-3xl font-extrabold text-[#22D3EE] drop-shadow mb-2"
+  initial="hidden"
+  animate="visible"
+  variants={{
+    visible: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }}
+>
+  {"FoodConnect".split("").map((char, index) => (
+    <motion.span
+      key={index}
+      variants={{
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+          y: [0, -8, 0],
+          opacity: 1,
+          transition: {
+            duration: 0.6,
+            repeat: Infinity,
+            repeatDelay: 2,
+            ease: "easeInOut",
+            delay: index * 0.05,
+          }
+        }
+      }}
+      className="inline-block"
+    >
+      {char}
+    </motion.span>
+  ))}
+</motion.h1>
+
         </ScrollLink>
 
         {/* Desktop Navigation */}

@@ -3,7 +3,7 @@ import Card from './components/Card'
 import Navbar from './components/Navbar'
 import Card2 from './components/Card2';
 // import {ModeToggle} from './components/ModeToggle'
-import {Routes,Route} from 'react-router-dom'
+// import {Routes,Route} from 'react-router-dom'
 import About from './components/About';
 import Services from './components/Services';
 import Contact from './components/Contact';
@@ -12,12 +12,12 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <Routes>
+      {/* <Routes>
         <Route path="/" />
         <Route path="/about"/>
         <Route path="/services" />
         <Route path="/contact" />
-      </Routes>
+      </Routes> */}
       <div id="home">
   <Card /> {/* Your banner / welcome component */}
 </div>

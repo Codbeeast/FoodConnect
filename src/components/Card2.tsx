@@ -6,14 +6,14 @@ const Card2 = () => {
       className="relative w-full max-w-7xl mx-auto px-4 mt-4 mb-4 z-10"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: false }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
       <motion.div
         className="relative min-h-[80vh] bg-[#0f172a99] backdrop-blur-md text-white shadow-2xl p-12 rounded-3xl border border-[#1E293B] flex flex-col gap-16 hover:scale-[1.01] transition-all duration-500"
         initial={{ opacity: 0.8, scale: 0.98 }}
         whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
       >
         {/* Title */}
@@ -21,7 +21,7 @@ const Card2 = () => {
           className="text-4xl lg:text-5xl font-extrabold text-center bg-gradient-to-r from-[#22D3EE] to-[#22C55E] bg-clip-text text-transparent"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ delay: 0.2 }}
         >
           How FoodConnect Works
@@ -32,7 +32,7 @@ const Card2 = () => {
           className="flex flex-col lg:flex-row gap-16"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           variants={{
             visible: { transition: { staggerChildren: 0.3 } },
           }}

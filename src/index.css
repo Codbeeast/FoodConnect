@@ -16,7 +16,7 @@ html{
   
 }
 html::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  /* display: none; Chrome, Safari, Opera */
 }
 
 @theme inline {
@@ -138,5 +138,8 @@ html::-webkit-scrollbar {
 
 html {
   font-family: 'Inter', sans-serif;
+   height: auto;
+  overflow-x: hidden;
+   /* scroll-behavior: smooth; */
      
 }
