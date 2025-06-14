@@ -12,7 +12,7 @@ const Services = () => {
   }
 
   return (
-    <section id="services" className="sm:py-30 sm:pb-10 py-30 sm:pt-5 pt-0 bg-[#0A0E1A] text-white px-6 scroll-mt-24">
+    <section id="services" className="sm:py-30 sm:pb-10 py-30 md:pt-5 pt-0 bg-[#0A0E1A] text-white px-6 scroll-mt-24">
       <div className="max-w-6xl mx-auto text-center">
         <motion.h2
           className="text-3xl font-bold text-[#0EA5E9] mb-6"
