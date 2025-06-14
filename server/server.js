@@ -6,8 +6,13 @@ import cors from 'cors'
 import uploadRoutes from './routes/uploadRoutes.js'
 const URL=process.env.MONGODB_url
 const app = express()
-app.use(cors())
-app.use(express.json())
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://foodconnect-28wm.onrender.com'],
+  credentials: true,
+}));
+
+// Add this before your routes
+app.use(express.json());
 app.use('/uploads', express.static('uploads')) // serve uploaded images
 app.use('/api', uploadRoutes)
 
