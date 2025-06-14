@@ -15,7 +15,7 @@ const Services = () => {
     <section id="services" className="sm:py-30 sm:pb-15 py-30 pt-5 bg-[#0A0E1A] text-white px-6 scroll-mt-24 min-h-screen">
       <div className="max-w-6xl mx-auto text-center">
         <motion.h2
-          className="text-3xl font-bold text-[#0EA5E9] mb-6"
+          className="text-3xl font-bold text-[#0EA5E9] md:mb-6 mb-4"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
