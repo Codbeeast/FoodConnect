@@ -50,7 +50,8 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 router.get('/foods', async (req, res) => {
   try {
     const foods = await Food.find().sort({ createdAt: -1 })
-    console.log(('hhh'))
+    res.send("hello")
+   
     res.status(200).json(foods)
   } catch (err) {
     console.error('Fetch error:', err)
