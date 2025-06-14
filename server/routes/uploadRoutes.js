@@ -1,37 +1,38 @@
 import express from 'express'
 import multer from 'multer'
-import Image from '../models/Image.js'
 import path from 'path'
+import fs from 'fs'
 
 const router = express.Router()
 
+// Use /tmp for file uploads on Render
 const storage = multer.diskStorage({
-  destination: 'uploads/',
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`)
+  destination: function (req, file, cb) {
+    const uploadPath = '/tmp/uploads'
+    fs.mkdirSync(uploadPath, { recursive: true }) // ensure folder exists
+    cb(null, uploadPath)
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname)
   }
 })
 
 const upload = multer({ storage })
 
-// Upload Route
 router.post('/upload', upload.single('image'), async (req, res) => {
-    console.log('errorr')
-    try{
-  const imagePath = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`
-  const newImage = new Image({ imageUrl: imagePath })
-  await newImage.save()
-  res.status(201).json(newImage)
-    }catch(err){
-        console.log('error:',err)
-          res.status(500).json({ error: 'Upload failed' });
+  try {
+    console.log('Upload route hit')
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' })
     }
-})
 
-// Get all images
-router.get('/images', async (req, res) => {
-  const images = await Image.find().sort({ uploadedAt: -1 })
-  res.json(images)
+    console.log('File uploaded:', req.file.path)
+
+    res.status(200).json({ message: 'File uploaded successfully', filePath: req.file.path })
+  } catch (err) {
+    console.error('Upload error:', err)
+    res.status(500).json({ error: 'Server error' })
+  }
 })
 
 export default router
