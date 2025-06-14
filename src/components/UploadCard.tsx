@@ -9,7 +9,7 @@ type Props = {
 const UploadCard = ({ onClose }: Props) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
-
+const baseURL = import.meta.env.VITE_API_URL
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
@@ -28,7 +28,7 @@ const UploadCard = ({ onClose }: Props) => {
   formData.append('image', fileInputRef.current.files[0])
 
   try {
-    const res = await fetch('http://localhost:5000/api/upload', {
+    const res = await fetch( `${baseURL ? baseURL : 'http://localhost:5000'}/api/upload`, {
       method: 'POST',
       body: formData,
     })

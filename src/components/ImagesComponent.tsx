@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 
 const ImagesComponent = () => {
   const [images, setImages] = useState<string[]>([])
-
+const baseURL = import.meta.env.VITE_API_URL
   useEffect(() => {
-    fetch('http://localhost:5000/api/images')
+    fetch( `${baseURL ? baseURL : 'http://localhost:5000'}/api/upload`)
       .then(res => res.json())
       .then(data => setImages(data.map((img: any) => img.imageUrl)))
       .catch(err => console.error(err))
