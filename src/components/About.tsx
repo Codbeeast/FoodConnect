@@ -12,7 +12,7 @@ const About = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: false }}
         >
-          About Us
+          About
         </motion.h2>
 
         <motion.p

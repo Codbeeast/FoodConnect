@@ -15,7 +15,7 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: false }}
         >
-          Contact Us
+          Contact
         </motion.h2>
 
         <motion.p
