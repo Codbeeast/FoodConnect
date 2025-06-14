@@ -4,17 +4,16 @@ import path from 'path'
 import fs from 'fs'
 import Food from '../models/food.js'
 
+
+
 const router = express.Router()
 
-// Use /tmp for file uploads (e.g., for Render)
 const storage = multer.diskStorage({
- destination: function (req, file, cb)
-    const uploadPath = '/tmp/uploads'
-    fs.mkdirSync(uploadPath, { recursive: true }) // ensure folder exists
-    cb(null, uploadPath)
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname)
+  destination: 'uploads/',
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`)
+  }
+})
 
 const upload = multer({ storage })
 
