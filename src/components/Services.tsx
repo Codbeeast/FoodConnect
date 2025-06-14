@@ -12,7 +12,7 @@ const Services = () => {
   }
 
   return (
-    <section id="services" className="sm:py-30 sm:pb-10 py-30 md:pt-5 pt-0 bg-[#0A0E1A] text-white px-6 scroll-mt-24">
+    <section id="services" className="sm:py-30 sm:pb-15 py-30 pt-5 bg-[#0A0E1A] text-white px-6 scroll-mt-24 min-h-screen">
       <div className="max-w-6xl mx-auto text-center">
         <motion.h2
           className="text-3xl font-bold text-[#0EA5E9] mb-6"
@@ -24,7 +24,7 @@ const Services = () => {
           Our Services
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 md:gap-10 gap-5 mt-10">
           {[
             {
               title: 'Food Donation',
