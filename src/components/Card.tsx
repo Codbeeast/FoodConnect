@@ -11,7 +11,7 @@ const Card = () => {
   return (
     <>
       <motion.div
-        className="relative sm:rounded-2xl overflow-hidden w-full max-w-[99%]  mx-auto h-[84vh] sm:h-[70vh] md:h-[86vh] sm:w-[100vw] mt-19 sm:mt-19.5 shadow-2xl"
+        className="relative sm:rounded-2xl overflow-hidden w-full max-w-[99%]  mx-auto h-[82vh] sm:h-[70vh] md:h-[86vh] sm:w-[100vw] mt-19 sm:mt-19.5 shadow-2xl"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
