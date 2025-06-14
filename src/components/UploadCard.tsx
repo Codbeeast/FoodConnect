@@ -28,7 +28,7 @@ const baseURL = import.meta.env.VITE_API_URL
   formData.append('image', fileInputRef.current.files[0])
 
   try {
-    const res = await fetch( `${baseURL ? baseURL : 'http://localhost:5000'}/api/uploadss`, {
+    const res = await fetch( `${baseURL ? baseURL : 'http://localhost:5000'}/api/upload`, {
     
       method: 'POST',
       body: formData,
