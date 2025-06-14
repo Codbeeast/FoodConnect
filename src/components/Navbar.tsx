@@ -81,7 +81,8 @@ const Navbar = () => {
         </motion.h1>
 
         {/* Desktop Navigation */}
-        <div className="hidden sm:flex gap-6 text-sm font-semibold tracking-wide">
+        <div className="hidden sm:flex flex-row items-center space-x-6 text-sm font-semibold tracking-wide whitespace-nowrap">
+
           {navItems.map((item, index) =>
             item.name === 'Uploaded Food' ? (
               <motion.div key={index} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.97 }}>
