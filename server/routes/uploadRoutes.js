@@ -47,6 +47,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 // ✅ GET /foods – fetch all uploaded food items
 router.get('/foods', async (req, res) => {
   try {
+    res.send("hello")
     const foods = await Food.find().sort({ createdAt: -1 })
     console.log(('hhh'))
     res.status(200).json(foods)
