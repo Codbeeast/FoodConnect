@@ -140,14 +140,14 @@ const baseURL = import.meta.env.VITE_API_URL
         <div className="flex justify-center gap-6 mt-4">
           <button
             onClick={onClose}
-            className="flex items-center gap-2 bg-gray-600 hover:bg-gray-700 text-white px-5 py-2 rounded-full font-medium shadow-md"
+            className="flex items-center active:scale-95 hover:scale-105 gap-2 bg-gray-600 hover:bg-gray-700 text-white px-5 py-2 rounded-full font-medium shadow-md"
           >
             <XCircle size={18} /> Cancel
           </button>
 
           <button
             onClick={handleSubmit}
-            className="bg-[#22C55E] hover:bg-green-600 text-white px-6 py-2 rounded-full font-semibold shadow-md"
+            className="bg-[#22C55E] active:scale-95 hover:scale-105 hover:bg-green-600 text-white px-6 py-2 rounded-full font-semibold shadow-md"
           >
             Submit
           </button>
