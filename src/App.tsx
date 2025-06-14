@@ -7,11 +7,12 @@ import Card2 from './components/Card2';
 import About from './components/About';
 import Services from './components/Services';
 import Contact from './components/Contact';
-
+import { Toaster } from 'react-hot-toast'
 const App = () => {
   return (
     <>
       <Navbar />
+         <Toaster position="top-center" reverseOrder={false} />
       {/* <Routes>
         <Route path="/" />
         <Route path="/about"/>

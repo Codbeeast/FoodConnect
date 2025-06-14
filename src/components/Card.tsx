@@ -65,6 +65,7 @@ const Card = () => {
           >
             Upload Food
           </motion.button>
+           
         </div>
       </motion.div>
 

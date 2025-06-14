@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { UploadCloud, XCircle } from 'lucide-react'
-
+import toast from 'react-hot-toast'
 type Props = {
   onClose: () => void
 }
@@ -21,6 +21,30 @@ const UploadCard = ({ onClose }: Props) => {
   const handleUploadClick = () => {
     fileInputRef.current?.click()
   }
+  const handleSubmit = async () => {
+  if (!fileInputRef.current?.files?.[0]) return
+
+  const formData = new FormData()
+  formData.append('image', fileInputRef.current.files[0])
+
+  try {
+    const res = await fetch('http://localhost:5000/api/upload', {
+      method: 'POST',
+      body: formData,
+    })
+
+    if (res.ok) {
+     toast.success('Uploaded!')
+      setSelectedImage(null)
+      onClose()
+    } else {
+      toast.error('❌ Upload failed.')
+    }
+  } catch (err) {
+    toast.error('🚨 Error uploading image.')
+  }
+}
+
 
   return (
     <motion.div
@@ -120,7 +144,7 @@ const UploadCard = ({ onClose }: Props) => {
           </button>
 
           <button
-            onClick={() => alert('Upload logic goes here')}
+            onClick={handleSubmit}
             className="bg-[#22C55E] hover:bg-green-600 text-white px-6 py-2 rounded-full font-semibold shadow-md"
           >
             Submit
