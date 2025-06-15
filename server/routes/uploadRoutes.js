@@ -15,7 +15,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
     })
 
     fs.unlinkSync(req.file.path)
-    const saved = await Food.create({ url: result.secure_url })
+    const saved = await Food.create({ imageUrl: result.secure_url })
 
     res.json({ success: true, url: saved.url })
   } catch (err) {
