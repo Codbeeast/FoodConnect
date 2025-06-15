@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const foodSchema = new mongoose.Schema({
   imageUrl: String,
-  createdAt: {
+  uploadedAt: {
     type: Date,
     default: Date.now
   },
