@@ -76,7 +76,7 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
               <img
                 src={item.imageUrl}
                 alt="Food"
-                className="w-full h-48 object-cover"
+                className="w-full h-78 object-cover"
               />
             </div>
           ))}
