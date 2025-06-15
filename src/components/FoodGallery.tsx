@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { X } from 'lucide-react'
 
-// Type for props
+// Props for closing the gallery
 type FoodGalleryProps = {
   onClose: () => void
 }
@@ -10,7 +10,7 @@ type FoodGalleryProps = {
 // Type for a single food item
 type FoodItem = {
   _id: string
-  imageUrl: string
+  imageUrl: string // Make sure this is the Cloudinary secure_url
   createdAt?: string
   updatedAt?: string
   __v?: number
@@ -26,10 +26,12 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
   useEffect(() => {
     const fetchFoodItems = async () => {
       try {
-        const res = await fetch(`${baseURL}/api/foods`)
+        const res = await fetch(`${baseURL}/api/foods`) // Adjust endpoint as needed
         if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`)
-        const data: FoodItem[] = await res.json()
-        setFoodItems(data)
+        const data = await res.json()
+
+        // Adjust if your response structure is { images: [...] } or { foodItems: [...] }
+        setFoodItems(data.images || data.foodItems || [])
       } catch (err: unknown) {
         const message = err instanceof Error ? err.message : 'Unknown error'
         setError(message)
@@ -72,7 +74,7 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
               className="bg-white rounded-xl overflow-hidden shadow-md"
             >
               <img
-                src={`${baseURL}/${item.imageUrl}`}
+                src={item.imageUrl}
                 alt="Food"
                 className="w-full h-48 object-cover"
               />
