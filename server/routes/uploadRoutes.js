@@ -1,63 +1,36 @@
 import express from 'express'
 import multer from 'multer'
-import path from 'path'
+import cloudinary from '../utils/cloudinary.js'
+import { v4 as uuidv4 } from 'uuid'
 import fs from 'fs'
 import Food from '../models/food.js'
-
 const router = express.Router()
 
-// Use /tmp for file uploads (e.g., for Render)
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const uploadPath = '/tmp/uploads'
-        fs.mkdirSync(uploadPath, { recursive: true })
-        cb(null, uploadPath)
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname)
-    }
-})
-
-const upload = multer({ storage })
-
-// POST /upload – upload a food image
+const upload = multer({ dest: 'temp/' })
 router.post('/upload', upload.single('image'), async (req, res) => {
-    try {
-        console.log('Upload route hit')
-        if (!req.file) {
-            return res.status(400).json({ error: 'No file uploaded' })
-        }
+  try {
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      public_id: uuidv4(),
+      folder: 'your-app-images'
+    })
 
-        const imageUrl = `uploads/${req.file.filename}`
+    fs.unlinkSync(req.file.path)
+    const saved = await Food.create({ url: result.secure_url })
 
-        // Save to MongoDB
-        const newFood = new Food({ imageUrl })
-        await newFood.save()
-
-        console.log('File uploaded and saved to DB:', imageUrl)
-
-        res.status(200).json({
-            message: 'File uploaded successfully',
-            food: newFood
-        })
-    } catch (err) {
-        console.error('Upload error:', err)
-        res.status(500).json({ error: 'Server error' })
-    }
+    res.json({ success: true, url: saved.url })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ success: false, message: 'Upload failed' })
+  }
 })
 
-// ✅ GET /foods – fetch all uploaded food items
 router.get('/foods', async (req, res) => {
-    try {
-        const foods = await Food.find().sort({ createdAt: -1 })
-        res.status(200).json(foods)
-    } catch (err) {
-        console.error('Fetch error:', err)
-        res.status(500).json({ error: 'Failed to fetch food items' })
-    }
+  try {
+    const images = await Food.find().sort({ uploadedAt: -1 })
+    res.json({ success: true, images })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ success: false, message: 'Failed to fetch images' })
+  }
 })
-
-
-
-
 export default router
