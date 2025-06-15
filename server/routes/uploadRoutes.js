@@ -23,8 +23,8 @@ router.post('/upload', upload.single('image'), async (req, res) => {
     res.status(500).json({ success: false, message: 'Upload failed' })
   }
 })
-
 router.get('/foods', async (req, res) => {
+
   try {
     const images = await Food.find().sort({ uploadedAt: -1 })
     res.json({ success: true, images })
@@ -34,3 +34,6 @@ router.get('/foods', async (req, res) => {
   }
 })
 export default router
+
+    
+
