@@ -24,7 +24,7 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
   const [error, setError] = useState<string | null>(null)
 
   const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
-
+  let capitalized = (e: string) => (e.charAt(0).toUpperCase() + e.slice(1))
   useEffect(() => {
     const fetchFoodItems = async () => {
       document.body.classList.add('no-scroll')
@@ -84,12 +84,12 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
                 src={item.imageUrl}
                 alt={item.foodName}
                 className="w-full h-64 object-cover"
-              />
-              <div className="p-4 space-y-1">
-                <h3 className="text-lg font-semibold text-[#0F172A]">{item.foodName}</h3>
+              />capitalised(
+            )  <div className="p-4 space-y-1">
+                <h3 className="text-lg font-semibold text-[#0F172A]">{capitalized(item.foodName)}</h3>
                 <p className="text-sm text-gray-700">Quantity: {item.quantity}</p>
-                <p className="text-sm text-gray-700">Location: {item.location}</p>
-                <p className="text-sm text-gray-600 italic">Note: {item.note}</p>
+                <p className="text-sm text-gray-700">Location: {capitalized(item.location)}</p>
+                <p className="text-sm text-gray-600 italic">Note: {capitalized(item.note)}</p>
               </div>
             </div>
           ))}
