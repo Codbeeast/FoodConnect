@@ -44,6 +44,7 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
   const [listening, setListening] = useState(false)
   // const [transcript, setTranscript] = useState<string>([])
   const [btn, setBtn] = useState(true)
+  const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 
   const stepRef = useRef(step)
   const activeRef = useRef(active)
@@ -210,7 +211,7 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
       formData.append('location', formRef.current.location)
       formData.append('note', formRef.current.note)
 
-      const res = await fetch('http://localhost:5000/api/data', {
+      const res = await fetch((`${baseURL}/api/data`), {
         method: 'POST',
         body: formData,
       })
@@ -220,11 +221,13 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
         onSubmitSuccess() // ✅ Trigger to go back to Card1
       } else {
         toast.error('Submission failed.')
+        onSubmitSuccess() 
       }
 
     } catch (err) {
       console.error('Error submitting form:', err)
       toast.error('Error during submission.')
+      onSubmitSuccess() 
     }
 
     setForm({ image: '', foodName: '', quantity: '', location: '', note: '' })
@@ -243,7 +246,7 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
   }
   const exit = () => {
     setListening(false)
-     setActive(false)
+    setActive(false)
     onSubmitSuccess()
     speak("")
     setForm({ image: '', foodName: '', quantity: '', location: '', note: '' })
