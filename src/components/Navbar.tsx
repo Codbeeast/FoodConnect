@@ -3,14 +3,14 @@ import { Link as ScrollLink } from 'react-scroll'
 import { motion, AnimatePresence } from 'framer-motion'
 import Avatar from './Avatar'
 import { Menu, X } from 'lucide-react'
-import FoodGallery from './FoodGallery' // ✅ Import the gallery component
+import FoodGallery from './FoodGallery'
 
 const navItems = [
   { name: 'Home', id: 'home' },
   { name: 'Services', id: 'services' },
   { name: 'About', id: 'about' },
   { name: 'Contact', id: 'contact' },
-  { name: 'Uploaded Food', id: 'gallery' }, // Special case (not a scroll link)
+  { name: 'Uploaded Food', id: 'gallery' },
 ]
 
 const Navbar = () => {
@@ -46,7 +46,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <motion.h1
-          className="flex justify-center text-2xl sm:text-3xl font-extrabold text-[#22D3EE] drop-shadow mb-2 cursor-pointer"
+          className="text-2xl sm:text-3xl font-extrabold text-[#22D3EE] cursor-pointer flex"
           initial="hidden"
           animate="visible"
           variants={{
@@ -80,15 +80,14 @@ const Navbar = () => {
           ))}
         </motion.h1>
 
-        {/* Desktop Navigation */}
-        <div className="hidden sm:flex flex-row items-center space-x-6 text-sm font-semibold tracking-wide whitespace-nowrap">
-
+        {/* Desktop Nav */}
+        <div className="hidden sm:flex items-center space-x-6 text-sm font-semibold tracking-wide">
           {navItems.map((item, index) =>
             item.name === 'Uploaded Food' ? (
               <motion.div key={index} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.97 }}>
                 <button
                   onClick={() => setShowGallery(true)}
-                  className={`cursor-pointer px-3 py-2 rounded-md transition-all duration-300 ${
+                  className={`px-3 py-2 rounded-md transition-all duration-300 ${
                     showGallery
                       ? 'text-[#22D3EE] bg-[#22D3EE]/10 border-b-2 border-[#22D3EE]'
                       : 'text-gray-300 hover:text-[#22D3EE]'
@@ -105,7 +104,7 @@ const Navbar = () => {
                   smooth={true}
                   offset={-80}
                   duration={500}
-                  className={`cursor-pointer px-3 py-2 rounded-md transition-all duration-300 ${
+                  className={`px-3 py-2 cursor-pointer rounded-md transition-all duration-300 ${
                     activeSection === item.id
                       ? 'text-[#22D3EE] bg-[#22D3EE]/10 border-b-2 border-[#22D3EE]'
                       : 'text-gray-300 hover:text-[#22D3EE]'
@@ -118,7 +117,7 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Mobile toggle + avatar */}
+        {/* Mobile Menu + Avatar */}
         <div className="flex items-center gap-4">
           <div className="sm:hidden">
             <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white">
@@ -146,7 +145,7 @@ const Navbar = () => {
                     setMobileOpen(false)
                     setShowGallery(true)
                   }}
-                  className={`cursor-pointer px-3 py-2 rounded-md transition-all duration-300 ${
+                  className={`px-3 py-2 rounded-md transition-all duration-300 ${
                     showGallery
                       ? 'text-[#22D3EE] bg-[#22D3EE]/10 border-b-2 border-[#22D3EE]'
                       : 'text-gray-300 hover:text-[#22D3EE]'
@@ -163,7 +162,7 @@ const Navbar = () => {
                   offset={-80}
                   duration={500}
                   onClick={() => setMobileOpen(false)}
-                  className={`cursor-pointer px-3 py-2 rounded-md transition-all duration-300 ${
+                  className={`px-3 py-2 cursor-pointer rounded-md transition-all duration-300 ${
                     activeSection === item.id
                       ? 'text-[#22D3EE] bg-[#22D3EE]/10 border-b-2 border-[#22D3EE]'
                       : 'text-gray-300 hover:text-[#22D3EE]'
