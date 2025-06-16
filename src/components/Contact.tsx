@@ -5,7 +5,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="sm:py-5 pt-20 md:pt-21  bg-[#0A0E1A] text-white px-6 scroll-mt-24 min-h-screen"
+      className="sm:py-5 pt-20 md:pt-6  bg-[#0A0E1A] text-white px-6 scroll-mt-24 min-h-screen"
     >
       <div className="max-w-6xl mx-auto text-center">
         <motion.h2

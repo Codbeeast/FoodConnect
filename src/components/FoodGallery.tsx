@@ -2,15 +2,17 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { X } from 'lucide-react'
 
-// Props for closing the gallery
 type FoodGalleryProps = {
   onClose: () => void
 }
 
-// Type for a single food item
 type FoodItem = {
   _id: string
-  imageUrl: string // Make sure this is the Cloudinary secure_url
+  imageUrl: string
+  foodName: string
+  quantity: string
+  location: string
+  note: string
   createdAt?: string
   updatedAt?: string
   __v?: number
@@ -25,13 +27,14 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
 
   useEffect(() => {
     const fetchFoodItems = async () => {
+      document.body.classList.add('no-scroll')
       try {
-        const res = await fetch(`${baseURL}/api/foods`) // Adjust endpoint as needed
+        const res = await fetch(`${baseURL}/api/foodData`)
         if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`)
         const data = await res.json()
 
-        // Adjust if your response structure is { images: [...] } or { foodItems: [...] }
-        setFoodItems(data.images || data.foodItems || [])
+        // ✅ Fix: handle array directly
+        setFoodItems(Array.isArray(data) ? data : [])
       } catch (err: unknown) {
         const message = err instanceof Error ? err.message : 'Unknown error'
         setError(message)
@@ -41,6 +44,10 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
     }
 
     fetchFoodItems()
+    return () => {
+      // Unlock scroll when gallery is closed
+      document.body.classList.remove('no-scroll')
+    }
   }, [baseURL])
 
   return (
@@ -49,7 +56,7 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
       animate={{ y: 0 }}
       exit={{ y: '100%' }}
       transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-      className="fixed inset-0 bg-[#0A0E1A] z-[100] overflow-y-auto px-4 py-6"
+      className="fixed inset-0 bg-[#0A0E1A] z-[100] overflow-y-auto px-4 py-6 "
     >
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
@@ -71,13 +78,19 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
           {foodItems.map((item) => (
             <div
               key={item._id}
-              className="bg-white rounded-xl overflow-hidden shadow-md"
+              className="bg-white rounded-2xl overflow-hidden shadow-lg transform transition hover:scale-105"
             >
               <img
                 src={item.imageUrl}
-                alt="Food"
-                className="w-full h-78 object-cover"
+                alt={item.foodName}
+                className="w-full h-64 object-cover"
               />
+              <div className="p-4 space-y-1">
+                <h3 className="text-lg font-semibold text-[#0F172A]">{item.foodName}</h3>
+                <p className="text-sm text-gray-700">Quantity: {item.quantity}</p>
+                <p className="text-sm text-gray-700">Location: {item.location}</p>
+                <p className="text-sm text-gray-600 italic">Note: {item.note}</p>
+              </div>
             </div>
           ))}
         </div>

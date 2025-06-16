@@ -2,11 +2,16 @@ import mongoose from 'mongoose'
 
 const foodSchema = new mongoose.Schema({
   imageUrl: String,
-  uploadedAt: {
-    type: Date,
-    default: Date.now
-  },
-  // Add more fields later like description, quantity, etc.
+  foodName: String,
+  quantity: String,
+  location: String,
+  note: String,
+  url: {
+    type: String,
+    required: false // ✅ fix
+  }
+}, {
+  timestamps: true
 })
 
-export default mongoose.model('Food', foodSchema)
+export default mongoose.model('fooddata', foodSchema)
