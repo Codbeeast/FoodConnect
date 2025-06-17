@@ -1,9 +1,13 @@
+// components/Navbar.tsx
 import { useState, useEffect } from 'react'
 import { Link as ScrollLink } from 'react-scroll'
+import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import Avatar from './Avatar'
 import { Menu, X } from 'lucide-react'
+import Avatar from '@mui/material/Avatar'
+import { deepOrange } from '@mui/material/colors'
 import FoodGallery from './FoodGallery'
+import { useAuth } from '../hooks/useAuth'
 
 const navItems = [
   { name: 'Home', id: 'home' },
@@ -17,21 +21,24 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const [showGallery, setShowGallery] = useState(false)
+  const { isAuthenticated, initials } = useAuth()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.6,
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id)
-        }
-      })
-    }, options)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
+        })
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.6,
+      }
+    )
 
     navItems.forEach(({ id }) => {
       const section = document.getElementById(id)
@@ -51,8 +58,8 @@ const Navbar = () => {
           animate="visible"
           variants={{
             visible: {
-              transition: { staggerChildren: 0.1 }
-            }
+              transition: { staggerChildren: 0.1 },
+            },
           }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
@@ -70,8 +77,8 @@ const Navbar = () => {
                     repeatDelay: 2,
                     ease: 'easeInOut',
                     delay: index * 0.05,
-                  }
-                }
+                  },
+                },
               }}
               className="inline-block"
             >
@@ -79,6 +86,29 @@ const Navbar = () => {
             </motion.span>
           ))}
         </motion.h1>
+
+        {/* Mobile menu button */}
+        <div className="sm:hidden flex gap-4">
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white">
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+          {isAuthenticated &&
+          <Avatar
+                onClick={() => navigate('/')}
+                sx={{
+                  bgcolor: deepOrange[500],
+                  cursor: 'pointer',
+                  width: 40,
+                  height: 40,
+                  fontSize: '1rem',
+                }}
+              >
+                {initials || '?'}
+              </Avatar>
+}
+        </div>
+         
+          
 
         {/* Desktop Nav */}
         <div className="hidden sm:flex items-center space-x-6 text-sm font-semibold tracking-wide">
@@ -117,18 +147,45 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Mobile Menu + Avatar */}
-        <div className="flex items-center gap-4">
-          <div className="sm:hidden">
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white">
-              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+        {/* Auth / Avatar - Desktop Only */}
+        <div className="hidden sm:flex items-center gap-4">
+          {isAuthenticated ? (
+            <>
+              <button
+                onClick={() => {
+                  localStorage.removeItem('user')
+                  navigate('/')
+                  window.location.reload()
+                }}
+                className="text-white bg-red-500 hover:bg-red-600 px-4 py-1 rounded-full font-semibold text-sm shadow-md"
+              >
+                Logout
+              </button>
+              <Avatar
+                onClick={() => navigate('/')}
+                sx={{
+                  bgcolor: deepOrange[500],
+                  cursor: 'pointer',
+                  width: 40,
+                  height: 40,
+                  fontSize: '1rem',
+                }}
+              >
+                {initials || '?'}
+              </Avatar>
+            </>
+          ) : (
+            <button
+              onClick={() => navigate('/login')}
+              className="text-white bg-[#22D3EE] hover:bg-[#0ea5e9] px-4 py-1 rounded-full font-semibold text-sm shadow-md"
+            >
+              Login
             </button>
-          </div>
-          <Avatar />
+          )}
         </div>
       </div>
 
-      {/* Mobile Dropdown */}
+      {/* Mobile Dropdown Menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -171,6 +228,31 @@ const Navbar = () => {
                   {item.name}
                 </ScrollLink>
               )
+            )}
+
+            {/* Auth - Mobile Only */}
+            {isAuthenticated ? (
+              <button
+                onClick={() => {
+                  localStorage.removeItem('user')
+                  setMobileOpen(false)
+                  navigate('/')
+                  window.location.reload()
+                }}
+                className="text-white bg-red-500 hover:bg-red-600 px-3 py-2 rounded-full font-semibold text-sm shadow-md transition duration-300"
+              >
+                Logout
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setMobileOpen(false)
+                  navigate('/login')
+                }}
+                className="text-white bg-[#22D3EE] hover:bg-[#0ea5e9] px-3 py-2 rounded-full font-semibold text-sm shadow-md transition duration-300"
+              >
+                Login
+              </button>
             )}
           </motion.div>
         )}

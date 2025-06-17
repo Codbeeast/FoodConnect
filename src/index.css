@@ -155,3 +155,6 @@ html {
 .noo-scroll::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+.input-field {
+  @apply w-full px-4 py-2 rounded-lg bg-[#1e293b] text-white border border-gray-700 focus:ring-2 focus:ring-[#22D3EE] focus:outline-none;
+}

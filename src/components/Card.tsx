@@ -3,9 +3,21 @@ import { img } from '.././images/Url'
 import { motion, AnimatePresence } from 'framer-motion'
 import UploadCard from './UploadCard'
 import AnimatedText from './AnimatedText'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth' // <- your custom auth hook
 
 const Card = () => {
   const [showUpload, setShowUpload] = useState(false)
+  const navigate = useNavigate()
+  const { isAuthenticated } = useAuth()
+
+  const handleUploadClick = () => {
+    if (isAuthenticated) {
+      setShowUpload(true)
+    } else {
+      navigate('/login')
+    }
+  }
 
   return (
     <>
@@ -58,7 +70,7 @@ const Card = () => {
 
           {/* Upload Button */}
           <motion.button
-            onClick={() => setShowUpload(true)}
+            onClick={handleUploadClick}
             className="mt-6 bg-[#22D3EE] hover:bg-[#0ea5e9] text-white font-semibold px-6 py-2 rounded-full shadow-lg transition duration-300 text-base sm:text-lg"
             whileHover={{ scale: 1.05 }}
           >

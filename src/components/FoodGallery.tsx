@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { X } from 'lucide-react'
-
+import { useAuth } from '../hooks/useAuth'
 type FoodGalleryProps = {
   onClose: () => void
 }
@@ -22,7 +22,7 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
   const [foodItems, setFoodItems] = useState<FoodItem[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
-
+  const { user } = useAuth()
   const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
   let capitalized = (e: string) => (e.charAt(0).toUpperCase() + e.slice(1))
   useEffect(() => {
@@ -86,11 +86,12 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
                 alt={item.foodName}
                 className="w-full h-64 object-cover"
               />capitalised(
-            )  <div className="p-4 space-y-1">
-                <h3 className="text-lg font-semibold text-[#0F172A]">{capitalized(item.foodName)}</h3>
+            )  <div className="px-4 space-y-1">
+                <h3 className="text-lg mt-[-8px] font-semibold text-[#0F172A]">{capitalized(item.foodName)}</h3>
+               <p className="text-sm text-gray-700">DonarName: {capitalized(user.displayName)}</p>  
                 <p className="text-sm text-gray-700">Quantity: {item.quantity}</p>
                 <p className="text-sm text-gray-700">Location: {capitalized(item.location)}</p>
-                <p className="text-sm text-gray-600 italic">Note: {capitalized(item.note)}</p>
+                <p className="text-sm mb-2 text-gray-600 italic">Note: {capitalized(item.note)}</p>
               </div>
             </div>
           ))}
