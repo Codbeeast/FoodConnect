@@ -46,7 +46,7 @@ const Signup = () => {
         </form>
 
         {/* Google Auth */}
-        <GoogleButton onClick={handleGoogleSignIn} />
+        <GoogleButton text="Log in with Google" />
 
         <p className="text-sm text-center text-gray-400 mt-6">
           Already have an account?{' '}
