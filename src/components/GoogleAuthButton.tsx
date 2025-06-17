@@ -1,47 +1,36 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { signInWithPopup, signInWithRedirect, getRedirectResult, UserCredential } from 'firebase/auth'
+import { signInWithPopup } from 'firebase/auth'
 import { auth, provider } from '../lib/firebase'
 import { FcGoogle } from 'react-icons/fc'
 import { motion } from 'framer-motion'
 
 type Props = {
   text?: string
-  onClick?:()=>void
+  onClick?: () => void
 }
 
 const GoogleButton: React.FC<Props> = ({ text = "Continue with Google" }) => {
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const checkRedirectResult = async () => {
-      try {
-        const result: UserCredential | null = await getRedirectResult(auth)
-        if (result?.user) {
-          localStorage.setItem('user', JSON.stringify(result.user))
-          navigate('/')
-        }
-      } catch (error) {
-        console.error("🚫 Redirect login failed:", error)
-      }
-    }
-
-    checkRedirectResult()
-  }, [navigate])
-
   const handleGoogleLogin = async () => {
-    const isMobile = window.innerWidth < 768
-
     try {
-      if (isMobile) {
-        await signInWithRedirect(auth, provider)
-      } else {
-        const result = await signInWithPopup(auth, provider)
-        localStorage.setItem('user', JSON.stringify(result.user))
+      const result = await signInWithPopup(auth, provider)
+      const user = result.user
+      if (user) {
+        localStorage.setItem('user', JSON.stringify(user))
         navigate('/')
       }
     } catch (error) {
-      console.error("❌ Google login failed:", error)
+      console.error("❌ Google popup login failed:", error)
+
+      // Firebase popup may fail in Safari iOS, embedded webviews, etc.
+      if (
+        typeof window !== 'undefined' &&
+        /crios|fxios|safari/i.test(window.navigator.userAgent) &&
+        !window.navigator.standalone
+      ) {
+        alert("Google Sign-In might not work in this browser. Try opening in Chrome or Safari directly.")
+      }
     }
   }
 
