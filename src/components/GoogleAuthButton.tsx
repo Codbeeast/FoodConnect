@@ -27,7 +27,8 @@ const GoogleButton: React.FC<Props> = ({ text = "Continue with Google" }) => {
       if (
         typeof window !== 'undefined' &&
         /crios|fxios|safari/i.test(window.navigator.userAgent) &&
-        !window.navigator.standalone
+        !("standalone" in window.navigator) || !(window.navigator as any).standalone
+
       ) {
         alert("Google Sign-In might not work in this browser. Try opening in Chrome or Safari directly.")
       }
