@@ -1,5 +1,6 @@
 // App.tsx
 import { Routes, Route, useLocation, Navigate} from 'react-router-dom'
+
 import { Toaster } from 'react-hot-toast'
 import Navbar from './components/Navbar'
 import Card from './components/Card'
@@ -58,6 +59,8 @@ const App = () => {
             </>
           }
         />
+        <Route path="*" element={<Navigate to="/" replace />} />
+
       </Routes>
     </>
   )
