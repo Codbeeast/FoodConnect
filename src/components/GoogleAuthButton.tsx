@@ -1,9 +1,13 @@
-// components/GoogleButton.tsx
 import { FcGoogle } from 'react-icons/fc'
 import { motion } from 'framer-motion'
 import { auth, provider } from '../lib/firebase'
-import { signInWithPopup } from 'firebase/auth'
+import {
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
+} from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 type Props = {
   text?: string
@@ -13,19 +17,37 @@ type Props = {
 const GoogleButton = ({ text = "Continue with Google" }: Props) => {
   const navigate = useNavigate()
 
+  // 👇 After redirect, complete login and navigate
+  useEffect(() => {
+    const checkRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth)
+        if (result?.user) {
+          localStorage.setItem('user', JSON.stringify(result.user))
+          navigate('/')
+        }
+      } catch (error) {
+        console.error('❌ Redirect login error:', error)
+      }
+    }
+
+    checkRedirectResult()
+  }, [])
+
+  // 👇 Detect mobile device
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+
   const handleGoogleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, provider)
-      const user = result.user
-    
-
-      // Optional: Save to localStorage or state
-      localStorage.setItem('user', JSON.stringify(user))
-
-      // Navigate to dashboard/home
-      navigate('/') // or wherever you want to go after login
+      if (isMobile) {
+        await signInWithRedirect(auth, provider)
+      } else {
+        const result = await signInWithPopup(auth, provider)
+        localStorage.setItem('user', JSON.stringify(result.user))
+        navigate('/')
+      }
     } catch (error) {
-      console.error("❌ Google login failed:", error)
+      console.error('❌ Google login failed:', error)
     }
   }
 
