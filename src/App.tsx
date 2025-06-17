@@ -1,5 +1,6 @@
 // App.tsx
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, Navigate} from 'react-router-dom'
+
 import { Toaster } from 'react-hot-toast'
 import Navbar from './components/Navbar'
 import Card from './components/Card'
@@ -10,14 +11,15 @@ import Contact from './components/Contact'
 import Signup from './components/SignUp'
 import Login from './components/Login'
 import { useAuth } from './hooks/useAuth'
-import { Navigate } from 'react-router-dom'
 
 const App = () => {
   const location = useLocation()
   const authPaths = ['/login', '/signup']
   const isAuthPage = authPaths.includes(location.pathname)
 
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, loading } = useAuth()
+
+  if (loading) return null // or a loading spinner
 
   return (
     <>
@@ -57,6 +59,8 @@ const App = () => {
             </>
           }
         />
+        
+
       </Routes>
     </>
   )
