@@ -1,5 +1,6 @@
 // App.tsx
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import Navbar from './components/Navbar'
 import Card from './components/Card'
@@ -10,14 +11,29 @@ import Contact from './components/Contact'
 import Signup from './components/SignUp'
 import Login from './components/Login'
 import { useAuth } from './hooks/useAuth'
-import { Navigate } from 'react-router-dom'
+import { getRedirectResult } from 'firebase/auth'
+import { auth } from './lib/firebase'
 
 const App = () => {
   const location = useLocation()
+  const navigate = useNavigate()
+  const { isAuthenticated } = useAuth()
   const authPaths = ['/login', '/signup']
   const isAuthPage = authPaths.includes(location.pathname)
 
-  const { isAuthenticated } = useAuth()
+  useEffect(() => {
+    // Handle Google redirect sign-in
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result?.user) {
+          localStorage.setItem('user', JSON.stringify(result.user))
+          navigate('/')
+        }
+      })
+      .catch((error) => {
+        console.error("Redirect login error:", error)
+      })
+  }, [])
 
   return (
     <>
@@ -27,15 +43,11 @@ const App = () => {
       <Routes>
         <Route
           path="/signup"
-          element={
-            isAuthenticated ? <Navigate to="/" replace /> : <Signup />
-          }
+          element={isAuthenticated ? <Navigate to="/" replace /> : <Signup />}
         />
         <Route
           path="/login"
-          element={
-            isAuthenticated ? <Navigate to="/" replace /> : <Login />
-          }
+          element={isAuthenticated ? <Navigate to="/" replace /> : <Login />}
         />
         <Route
           path="/"
