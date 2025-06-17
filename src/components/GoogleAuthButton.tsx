@@ -13,6 +13,7 @@ import { isMobile } from 'react-device-detect'
 
 type Props = {
   text?: string
+  onClick?:()=>void
 }
 
 const GoogleButton = ({ text = "Continue with Google" }: Props) => {
