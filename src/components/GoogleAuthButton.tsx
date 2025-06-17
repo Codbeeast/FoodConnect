@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 type Props = {
   text?: string
+  onClick?: () => void
 }
 
 const GoogleButton = ({ text = "Continue with Google" }: Props) => {
