@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-const GoogleButton: React.FC<Props> = ({ text = "Continue with Google" }) => {
+const GoogleButton: React.FC<Props> = ({ text }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -50,10 +50,11 @@ const GoogleButton: React.FC<Props> = ({ text = "Continue with Google" }) => {
 
   return (
     <motion.div
-      id="google-button-container"
-      className="mt-4"
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.97 }}
+       id="google-button-container"
+  className="mt-4 w-full gap-2 flex justify-center items-center px-2 bg-black h-10 rounded-4xl py-6"
+  whileHover={{ scale: 1.02 }}
+  whileTap={{ scale: 0.98 }}
+  aria-label={text}
     >
       {/* Google renders its button inside this div */}
       <FcGoogle size={22} />
@@ -63,3 +64,10 @@ const GoogleButton: React.FC<Props> = ({ text = "Continue with Google" }) => {
 }
 
 export default GoogleButton
+{/* <motion.div
+  id="google-button-container"
+  className="mt-4 w-full flex justify-center items-center px-2"
+  whileHover={{ scale: 1.02 }}
+  whileTap={{ scale: 0.98 }}
+  aria-label={text}
+/> */}
