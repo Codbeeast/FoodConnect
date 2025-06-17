@@ -4,10 +4,6 @@ import { Link } from 'react-router-dom'
 import GoogleButton from './GoogleAuthButton'
 
 const Signup = () => {
-  const handleGoogleSignIn = () => {
-    console.log('Google Sign-In')
-    // Add Firebase or NextAuth logic here
-  }
 
   return (
     <div className="min-h-screen bg-[#0A0E1A] flex items-center justify-center px-4 lg:py-2 md:py-2">
