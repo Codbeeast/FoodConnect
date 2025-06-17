@@ -88,7 +88,7 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
               />capitalised(
             )  <div className="px-4 space-y-1">
                 <h3 className="text-lg mt-[-8px] font-semibold text-[#0F172A]">{capitalized(item.foodName)}</h3>
-               <p className="text-sm text-gray-700">DonarName: {capitalized(user.displayName)}</p>  
+               <p className="text-sm text-gray-700">DonarName: {capitalized(user?.displayName)}</p>  
                 <p className="text-sm text-gray-700">Quantity: {item.quantity}</p>
                 <p className="text-sm text-gray-700">Location: {capitalized(item.location)}</p>
                 <p className="text-sm mb-2 text-gray-600 italic">Note: {capitalized(item.note)}</p>
