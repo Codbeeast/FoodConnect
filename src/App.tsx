@@ -16,24 +16,12 @@ import { auth } from './lib/firebase'
 
 const App = () => {
   const location = useLocation()
-  const navigate = useNavigate()
-  const { isAuthenticated } = useAuth()
   const authPaths = ['/login', '/signup']
   const isAuthPage = authPaths.includes(location.pathname)
 
-  useEffect(() => {
-    // Handle Google redirect sign-in
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result?.user) {
-          localStorage.setItem('user', JSON.stringify(result.user))
-          navigate('/')
-        }
-      })
-      .catch((error) => {
-        console.error("Redirect login error:", error)
-      })
-  }, [])
+  const { isAuthenticated, loading } = useAuth()
+
+  if (loading) return null // or a loading spinner
 
   return (
     <>
@@ -43,11 +31,15 @@ const App = () => {
       <Routes>
         <Route
           path="/signup"
-          element={isAuthenticated ? <Navigate to="/" replace /> : <Signup />}
+          element={
+            isAuthenticated ? <Navigate to="/" replace /> : <Signup />
+          }
         />
         <Route
           path="/login"
-          element={isAuthenticated ? <Navigate to="/" replace /> : <Login />}
+          element={
+            isAuthenticated ? <Navigate to="/" replace /> : <Login />
+          }
         />
         <Route
           path="/"
@@ -69,11 +61,7 @@ const App = () => {
             </>
           }
         />
-        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      
     </>
   )
 }
-
-export default App
