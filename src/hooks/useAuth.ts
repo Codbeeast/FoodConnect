@@ -7,7 +7,7 @@ export const useAuth = () => {
   const getInitials = () => {
     if (!user?.displayName) return ''
     const parts = user.displayName?.trim().split(' ')
-    return parts.map(p => p[0].toUpperCase()).join('')
+    return parts.map((p: string) => p[0].toUpperCase()).join('')
   }
 
   return { user, isAuthenticated, initials: getInitials() }
