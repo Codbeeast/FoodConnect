@@ -51,6 +51,7 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
   }, [baseURL])
 
   return (
+    
     <motion.div
       initial={{ y: '100%' }}
       animate={{ y: 0 }}

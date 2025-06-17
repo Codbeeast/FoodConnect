@@ -254,7 +254,7 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
 
   return (
     // outer wrapper: full screen, fixed, overlay
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-80 backdrop-blur-md overflow-y-auto">
+    <div className="noo-scroll fixed inset-0 z-50 bg-black bg-opacity-80 backdrop-blur-md overflow-y-auto">
       {/* Assistant container */}
       <div className="text-white p-6 w-full min-h-screen flex flex-col items-center bg-gradient-to-br from-gray-900 via-black to-gray-800 overflow-y-auto">
 

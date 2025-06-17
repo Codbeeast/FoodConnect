@@ -143,3 +143,15 @@ html {
  /* scroll-behavior: smooth; */
      
 }
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.no-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+.noo-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
