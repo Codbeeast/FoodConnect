@@ -1,6 +1,5 @@
 // App.tsx
-import { Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { Routes, Route, useLocation, Navigate} from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import Navbar from './components/Navbar'
 import Card from './components/Card'
@@ -11,8 +10,6 @@ import Contact from './components/Contact'
 import Signup from './components/SignUp'
 import Login from './components/Login'
 import { useAuth } from './hooks/useAuth'
-import { getRedirectResult } from 'firebase/auth'
-import { auth } from './lib/firebase'
 
 const App = () => {
   const location = useLocation()
@@ -65,3 +62,5 @@ const App = () => {
     </>
   )
 }
+
+export default App
