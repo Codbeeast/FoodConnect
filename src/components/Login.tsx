@@ -4,12 +4,7 @@ import { Link } from 'react-router-dom'
 import GoogleButton from './GoogleAuthButton'
 
 const Login = () => {
-  const handleGoogleLogin = () => {
-    console.log('Google Login')
-    // Add Google login logic here
-  }
-
-  return (
+    return (
     <div className="min-h-screen bg-[#0A0E1A] flex items-center justify-center px-4 py-10">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -42,7 +37,8 @@ const Login = () => {
         </form>
 
         {/* Google Auth */}
-        <GoogleButton onClick={handleGoogleLogin} text="Log in with Google" />
+        <GoogleButton text="Log in with Google" />
+
 
         <p className="text-sm text-center text-gray-400 mt-6">
           Don’t have an account?{' '}

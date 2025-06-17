@@ -1,50 +1,64 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { signInWithPopup } from 'firebase/auth'
-import { auth, provider } from '../lib/firebase'
-import { FcGoogle } from 'react-icons/fc'
 import { motion } from 'framer-motion'
+import { FcGoogle } from 'react-icons/fc'
 
 type Props = {
   text?: string
-  onClick?: () => void
+}
+declare global {
+  interface Window {
+    google: any
+  }
 }
 
 const GoogleButton: React.FC<Props> = ({ text = "Continue with Google" }) => {
   const navigate = useNavigate()
 
-  const handleGoogleLogin = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider)
-      const user = result.user
-      if (user) {
-        localStorage.setItem('user', JSON.stringify(user))
-        navigate('/')
-      }
-    } catch (error) {
-      console.error("❌ Google popup login failed:", error)
+  useEffect(() => {
+    if (window.google && window.google.accounts.id) {
+      window.google.accounts.id.initialize({
+        client_id: import.meta.env.VITE_CLIENT_ID, // Replace with your actual client ID
+        callback: handleCredentialResponse,
+      })
 
-      // Firebase popup may fail in Safari iOS, embedded webviews, etc.
-      if (
-        typeof window !== 'undefined' &&
-        /crios|fxios|safari/i.test(window.navigator.userAgent) &&
-        !("standalone" in window.navigator) || !(window.navigator as any).standalone
-
-      ) {
-        alert("Google Sign-In might not work in this browser. Try opening in Chrome or Safari directly.")
-      }
+      window.google.accounts.id.renderButton(
+        document.getElementById('google-button-container')!,
+        { theme: 'outline', size: 'large', width: '100%' }
+      )
     }
+  }, [])
+
+  const handleCredentialResponse = (response: any) => {
+    const token = response.credential
+
+    // Decode JWT to get user info (for demo purpose only, use backend to verify token in production)
+    const base64Url = token.split('.')[1]
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    )
+    const user = JSON.parse(jsonPayload)
+    console.log("👤 Google user:", user)
+
+    localStorage.setItem('user', JSON.stringify(user))
+    navigate('/')
   }
 
   return (
-    <motion.button
-      onClick={handleGoogleLogin}
+    <motion.div
+      id="google-button-container"
+      className="mt-4"
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
-      className="w-full py-2 bg-white text-black font-medium rounded-full flex items-center justify-center gap-3 shadow-lg transition-all duration-300 mt-4"
     >
+      {/* Google renders its button inside this div */}
       <FcGoogle size={22} />
-      {text}
-    </motion.button>
+       {text || 'Continue with Google'}
+    </motion.div>
   )
 }
 
