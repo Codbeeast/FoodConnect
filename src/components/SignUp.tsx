@@ -19,7 +19,7 @@ const Signup = () => {
     setLoading(true)
 
     try {
-      const { data } = await axios.post(`${baseURL}api/signup`, { name, email, password })
+      const { data } = await axios.post(`${baseURL}/api/signup`, { name, email, password })
       data
       toast.success('Signup successful! Redirecting...')
       setTimeout(() => navigate('/login'), 1500)
