@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { X } from 'lucide-react'
-import { useAuth } from '../hooks/useAuth'
+// import { useAuth } from '../hooks/useAuth'
 type FoodGalleryProps = {
   onClose: () => void
 }
