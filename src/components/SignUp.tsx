@@ -20,6 +20,7 @@ const Signup = () => {
 
     try {
       const { data } = await axios.post(`${baseURL}api/signup`, { name, email, password })
+      data
       toast.success('Signup successful! Redirecting...')
       setTimeout(() => navigate('/login'), 1500)
     } catch (err: any) {
