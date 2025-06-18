@@ -198,41 +198,51 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
     }
   }, [])
 
-  const submitForm = async () => {
-    try {
-      const formData = new FormData()
+ const submitForm = async () => {
+  const loadingToast = toast.loading('Please wait, server is 😴sleeping...')
 
-      if (imageFile) {
-        formData.append('image', imageFile)
-      }
+  try {
+    const formData = new FormData()
 
-      formData.append('foodName', formRef.current.foodName)
-      formData.append('quantity', formRef.current.quantity)
-      formData.append('location', formRef.current.location)
-      formData.append('note', formRef.current.note)
-
-      const res = await fetch((`${baseURL}/api/data`), {
-        method: 'POST',
-        body: formData,
-      })
-      console.log(res)
-      if (res.ok) {
-        toast.success('Thank you! Submission successful.')
-        onSubmitSuccess() // ✅ Trigger to go back to Card1
-      } else {
-        toast.error('Submission failed.')
-        onSubmitSuccess() 
-      }
-
-    } catch (err) {
-      console.error('Error submitting form:', err)
-      toast.error('Error during submission.')
-      onSubmitSuccess() 
+    if (imageFile) {
+      formData.append('image', imageFile)
     }
 
-    setForm({ image: '', foodName: '', quantity: '', location: '', note: '' })
+    formData.append('foodName', formRef.current.foodName)
+    formData.append('quantity', formRef.current.quantity)
+    formData.append('location', formRef.current.location)
+    formData.append('note', formRef.current.note)
+
+    const res = await fetch(`${baseURL}/api/data`, {
+      method: 'POST',
+      body: formData,
+    })
+
+    toast.dismiss(loadingToast) // Remove the loading toast
+
+    if (res.ok) {
+      toast.success('✅ Thank you! Submission successful.')
+      onSubmitSuccess() // Go back to Card
+    } else {
+      toast.error('❌ Submission failed.')
+      onSubmitSuccess()
+    }
+
+  } catch (err) {
+    console.error('Error submitting form:', err)
+    toast.dismiss(loadingToast)
+    toast.error('❌ Error during submission.')
+    onSubmitSuccess()
   }
 
+  setForm({
+    image: '',
+    foodName: '',
+    quantity: '',
+    location: '',
+    note: '',
+  })
+}
 
 
   const startAssistant = () => {

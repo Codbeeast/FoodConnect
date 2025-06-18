@@ -69,7 +69,7 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
 
       {/* Content */}
       {loading ? (
-        <p className="text-white">Loading...</p>
+        <p className="text-white">Please Wait Server Is 😴Sleeping...</p>
       ) : error ? (
         <p className="text-red-400">Error: {error}</p>
       ) : foodItems.length === 0 ? (

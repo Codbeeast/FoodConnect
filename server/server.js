@@ -4,6 +4,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import foodRoutes from './routes/foodRoute.js'
+import userRoute from './routes/userRoute.js'
 const URL=process.env.MONGODB_URL
 const app = express()
 app.use(cors({
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use('/uploads', express.static('uploads')) // serve uploaded images
 app.use('/uploads', express.static('/tmp/uploads')) // for Render
 app.use('/api',foodRoutes)
+app.use('/api',userRoute)
 mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err))
