@@ -46,7 +46,7 @@ export const useAuth = () => {
 
 
   const isAuthenticated = !!user
- console.log(user?.name)
+ 
   const getInitials = () => {
     if (!user?.name) return ''
     return user.name
