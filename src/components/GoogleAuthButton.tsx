@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
 type Props = {
-  text?: string // Optional custom button label
+  text?: string
 }
 
 declare global {
@@ -12,14 +12,13 @@ declare global {
   }
 }
 
-const GoogleButton: React.FC<Props> = ({ text = "Continue with Google" }) => {
+const GoogleButton: React.FC<Props> = ({ text = 'Continue with Google' }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    
     if (window.google && window.google.accounts.id) {
       window.google.accounts.id.initialize({
-        client_id: import.meta.env.VITE_CLIENT_ID, // Add in .env: VITE_CLIENT_ID=your-client-id
+        client_id: import.meta.env.VITE_CLIENT_ID,
         callback: handleCredentialResponse,
       })
 
@@ -29,7 +28,7 @@ const GoogleButton: React.FC<Props> = ({ text = "Continue with Google" }) => {
           theme: 'outline',
           size: 'large',
           width: '100%',
-          text: 'continue_with', // Options: "signin_with", "signup_with", etc.
+          text: 'continue_with',
           shape: 'pill',
         }
       )
@@ -39,22 +38,21 @@ const GoogleButton: React.FC<Props> = ({ text = "Continue with Google" }) => {
   const handleCredentialResponse = async (response: any) => {
     const token = response.credential
 
-    // Decode JWT
+    // ✅ Decode the JWT
     const base64Url = token.split('.')[1]
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
     const jsonPayload = decodeURIComponent(
       atob(base64)
         .split('')
-        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
         .join('')
     )
-
     const user = JSON.parse(jsonPayload)
 
-    // Store in localStorage
+    // ✅ Save user locally
     localStorage.setItem('user', JSON.stringify(user))
 
-    // Send to backend
+    // ✅ Send user to backend
     try {
       const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
       const res = await fetch(`${baseURL}/api/users`, {
@@ -69,14 +67,17 @@ const GoogleButton: React.FC<Props> = ({ text = "Continue with Google" }) => {
         }),
       })
 
-      const result = await res.json()
-      result
-      
+      if (!res.ok) {
+       
+      } else {
+        const result = await res.json()
+        result
+      }
     } catch (err) {
       
     }
 
-    // Redirect to home
+    // ✅ Navigate
     navigate('/')
   }
 
