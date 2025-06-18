@@ -23,7 +23,7 @@ const Card = () => {
     <>
       {/* Main Card Container */}
       <motion.div
-        className="relative overflow-hidden w-full max-w-[100%] pt-35 mx-auto rounded-none sm:rounded-2xl shadow-2xl min-h-[100vh] sm:min-h-[70vh] md:min-h-[85vh] lg:min-h-[90vh]"
+        className="relative overflow-hidden w-full max-w-[100%] pt-35 mx-auto rounded-none sm:rounded-2xl shadow-2xl min-h-[100vh] sm:min-h-[70vh] md:min-h-[90vh] lg:min-h-[95vh]"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
