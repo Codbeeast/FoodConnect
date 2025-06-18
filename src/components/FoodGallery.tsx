@@ -22,7 +22,7 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
   const [foodItems, setFoodItems] = useState<FoodItem[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
-  const { user } = useAuth()
+  // const { user } = useAuth()
   const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
   let capitalized = (e: string) => (e.charAt(0).toUpperCase() + e.slice(1))
   useEffect(() => {
