@@ -18,20 +18,35 @@ export const useAuth = () => {
   const [user, setUser] = useState<GoogleUser | null>(null)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    const checkLogin = () => {
-      const storedUser = localStorage.getItem('user')
-      if (storedUser) {
-        setUser(JSON.parse(storedUser))
-      }
-      setLoading(false)
-    }
+ useEffect(() => {
+  const checkLogin = () => {
+    const storedUser = localStorage.getItem('user')
+    if (storedUser) {
+      try {
+        const parsed = JSON.parse(storedUser)
 
-    checkLogin()
-  }, [])
+        // Case: { user: { name, email, ... } }
+        if (parsed.user && parsed.user.name && parsed.user.email) {
+          setUser(parsed.user)
+        }
+        // Case: { name, email, ... }
+        else if (parsed.name && parsed.email) {
+          setUser(parsed)
+        }
+
+      } catch (err) {
+        console.error('Failed to parse user:', err)
+      }
+    }
+    setLoading(false)
+  }
+
+  checkLogin()
+}, [])
+
 
   const isAuthenticated = !!user
-
+ console.log(user?.name)
   const getInitials = () => {
     if (!user?.name) return ''
     return user.name

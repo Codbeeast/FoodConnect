@@ -1,12 +1,36 @@
 // pages/Signup.tsx
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import GoogleButton from './GoogleAuthButton'
 
 const Signup = () => {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+ const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+
+    try {
+      const { data } = await axios.post(`${baseURL}api/signup`, { name, email, password })
+      toast.success('Signup successful! Redirecting...')
+      setTimeout(() => navigate('/login'), 1500)
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || 'Signup failed')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
-    <div className="min-h-screen bg-[#0A0E1A] flex items-center justify-center px-4 lg:py-2 md:py-2">
+    <div className="min-h-screen bg-[#0A0E1A] flex items-center justify-center px-4 py-10">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -18,38 +42,58 @@ const Signup = () => {
           Sign up to connect food with those who need it.
         </p>
 
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSignup}>
           <div>
             <label className="block text-sm text-white mb-1">Name</label>
-            <input type="text" required placeholder="Your Name" className="input-field" />
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              placeholder="Your Name"
+              className="input-field"
+            />
           </div>
           <div>
             <label className="block text-sm text-white mb-1">Email</label>
-            <input type="email" required placeholder="you@example.com" className="input-field" />
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="you@example.com"
+              className="input-field"
+            />
           </div>
           <div>
             <label className="block text-sm text-white mb-1">Password</label>
-            <input type="password" required placeholder="••••••••" className="input-field" />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="••••••••"
+              className="input-field"
+            />
           </div>
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             type="submit"
+            disabled={loading}
             className="w-full py-2 bg-[#22D3EE] hover:bg-[#0ea5e9] text-white font-semibold rounded-full shadow-lg"
           >
-            Sign Up
+            {loading ? 'Signing up...' : 'Sign Up'}
           </motion.button>
         </form>
 
-        {/* Google Auth */}
-        <GoogleButton text="SignUp in with Google" />
+        <GoogleButton text="Sign up with Google" />
 
         <p className="text-sm text-center text-gray-400 mt-6">
           Already have an account?{' '}
-          <Link to="/login" className="text-[#22D3EE] hover:underline">
-            Login
-          </Link>
+          <Link to="/login" className="text-[#22D3EE] hover:underline">Login</Link>
         </p>
+        <ToastContainer />
       </motion.div>
     </div>
   )

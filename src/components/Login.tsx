@@ -1,10 +1,36 @@
 // pages/Login.tsx
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import GoogleButton from './GoogleAuthButton'
 
 const Login = () => {
-    return (
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+ const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+
+    try {
+      const { data } = await axios.post(`${baseURL}api/login`, { email, password })
+      localStorage.setItem('user', JSON.stringify(data))
+
+      toast.success('Logged in successfully!')
+      setTimeout(() => navigate('/'), 1000)
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || 'Login failed')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
     <div className="min-h-screen bg-[#0A0E1A] flex items-center justify-center px-4 py-10">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -17,35 +43,47 @@ const Login = () => {
           Welcome back! Log in to continue helping others.
         </p>
 
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleLogin}>
           <div>
             <label className="block text-sm text-white mb-1">Email</label>
-            <input type="email" required placeholder="you@example.com" className="input-field" />
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="you@example.com"
+              className="input-field"
+            />
           </div>
           <div>
             <label className="block text-sm text-white mb-1">Password</label>
-            <input type="password" required placeholder="••••••••" className="input-field" />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="••••••••"
+              className="input-field"
+            />
           </div>
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             type="submit"
+            disabled={loading}
             className="w-full py-2 bg-[#22D3EE] hover:bg-[#0ea5e9] text-white font-semibold rounded-full shadow-lg"
           >
-            Log In
+            {loading ? 'Logging in...' : 'Log In'}
           </motion.button>
         </form>
 
-        {/* Google Auth */}
         <GoogleButton text="Log in with Google" />
-
 
         <p className="text-sm text-center text-gray-400 mt-6">
           Don’t have an account?{' '}
-          <Link to="/signup" className="text-[#22D3EE] hover:underline">
-            Sign up
-          </Link>
+          <Link to="/signup" className="text-[#22D3EE] hover:underline">Sign up</Link>
         </p>
+        <ToastContainer />
       </motion.div>
     </div>
   )
