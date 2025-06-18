@@ -54,6 +54,7 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
     if (btn == false) {
       setListening(false)
       speak("Voice Assistant Deactivated")
+      setForm({ image: '', foodName: '', quantity: '', location: '', note: '' })
     }
     setBtn(!btn)
     setActive(false)
