@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-
+import toast from 'react-hot-toast'
 type Props = {
   text?: string
 }
@@ -51,10 +51,11 @@ const GoogleButton: React.FC<Props> = ({ text = 'Continue with Google' }) => {
 
     // ✅ Save user locally
     localStorage.setItem('user', JSON.stringify(user))
-
+    const loadingToast = toast.loading('Please wait...')
     // ✅ Send user to backend
     try {
       const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+      
       const res = await fetch(`${baseURL}/api/users`, {
         method: 'POST',
         headers: {
@@ -66,7 +67,7 @@ const GoogleButton: React.FC<Props> = ({ text = 'Continue with Google' }) => {
           picture: user.picture,
         }),
       })
-
+      toast.dismiss(loadingToast) 
       if (!res.ok) {
        
       } else {

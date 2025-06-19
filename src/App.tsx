@@ -11,8 +11,10 @@ import Signup from './components/SignUp'
 import Login from './components/Login'
 import { useAuth } from './hooks/useAuth'
 import { Navigate } from 'react-router-dom'
+import {useNotifications} from './hooks/useNotification'
 
 const App = () => {
+   useNotifications()
   const location = useLocation()
   const authPaths = ['/login', '/signup']
   const isAuthPage = authPaths.includes(location.pathname)

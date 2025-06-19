@@ -3,13 +3,16 @@ import { useState, useEffect } from 'react'
 import { Link as ScrollLink } from 'react-scroll'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X} from 'lucide-react'
 import Avatar from '@mui/material/Avatar'
 import { deepOrange } from '@mui/material/colors'
 import FoodGallery from './FoodGallery'
 import { useAuth } from '../hooks/useAuth'
-import { signOut } from 'firebase/auth'
-import { auth } from '../lib/firebase'
+// import { signOut } from 'firebase/auth'
+// import { auth } from '../lib/firebase'
+// import { useNotifications } from '../hooks/useNotification'
+
+
 const navItems = [
   { name: 'Home', id: 'home' },
   { name: 'Services', id: 'services' },
@@ -23,6 +26,7 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home')
   const [showGallery, setShowGallery] = useState(false)
   const { isAuthenticated, initials } = useAuth()
+ 
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -145,17 +149,17 @@ const Navbar = () => {
             )
           )}
         </div>
-
+         
         {/* Auth / Avatar - Desktop Only */}
         <div className="hidden sm:flex items-center gap-4">
           {isAuthenticated ? (
-           
+
             <>
-             
+              
               <button
-                onClick={async () => {
+                onClick={ () => {
                   try {
-                    await signOut(auth) // ✅ properly sign out from Firebase
+                    
                     localStorage.removeItem('user')
                     setMobileOpen(false)
                     navigate('/')
@@ -181,17 +185,17 @@ const Navbar = () => {
                 {initials || '?'}
               </Avatar>
             </>
-          ) : ( 
-             <>
-           
+          ) : (
+            <>
 
-            <button
-              onClick={() => navigate('/login')}
-              className="text-white bg-[#22D3EE] hover:bg-[#0ea5e9] px-4 py-1 rounded-full font-semibold text-sm shadow-md"
+
+              <button
+                onClick={() => navigate('/login')}
+                className="text-white bg-[#22D3EE] hover:bg-[#0ea5e9] px-4 py-1 rounded-full font-semibold text-sm shadow-md"
               >
-              Login
-            </button>
-              </>
+                Login
+              </button>
+            </>
           )}
         </div>
       </div>
@@ -242,9 +246,9 @@ const Navbar = () => {
             {/* Auth - Mobile Only */}
             {isAuthenticated ? (
               <button
-                onClick={async () => {
+                onClick={() => {
                   try {
-                    await signOut(auth) // ✅ properly sign out from Firebase
+                    
                     localStorage.removeItem('user')
                     setMobileOpen(false)
                     navigate('/')

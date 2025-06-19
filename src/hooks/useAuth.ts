@@ -11,6 +11,7 @@ declare global {
 export type GoogleUser = {
   name: string
   email: string
+  id:string
   picture?: string
 }
 

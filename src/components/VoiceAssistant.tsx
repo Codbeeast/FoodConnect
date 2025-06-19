@@ -204,7 +204,7 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
 
   try {
     const formData = new FormData()
-
+    const token = localStorage.getItem('token') || '' 
     if (imageFile) {
       formData.append('image', imageFile)
     }
@@ -213,7 +213,7 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
     formData.append('quantity', formRef.current.quantity)
     formData.append('location', formRef.current.location)
     formData.append('note', formRef.current.note)
-
+    formData.append('uploaderToken', token || '') 
     const res = await fetch(`${baseURL}/api/data`, {
       method: 'POST',
       body: formData,
