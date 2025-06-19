@@ -149,7 +149,9 @@ const Navbar = () => {
         {/* Auth / Avatar - Desktop Only */}
         <div className="hidden sm:flex items-center gap-4">
           {isAuthenticated ? (
+           
             <>
+             
               <button
                 onClick={async () => {
                   try {
@@ -179,13 +181,17 @@ const Navbar = () => {
                 {initials || '?'}
               </Avatar>
             </>
-          ) : (
+          ) : ( 
+             <>
+           
+
             <button
               onClick={() => navigate('/login')}
               className="text-white bg-[#22D3EE] hover:bg-[#0ea5e9] px-4 py-1 rounded-full font-semibold text-sm shadow-md"
-            >
+              >
               Login
             </button>
+              </>
           )}
         </div>
       </div>

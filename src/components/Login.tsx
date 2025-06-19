@@ -3,23 +3,37 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { jwtDecode } from 'jwt-decode'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import GoogleButton from './GoogleAuthButton'
+
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
- const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+  
+  const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+
+
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
     try {
       const { data } = await axios.post(`${baseURL}/api/login`, { email, password })
-      localStorage.setItem('user', JSON.stringify(data))
+
+      // Decode the token to get expiration
+      const decoded: any = jwtDecode(data.token)
+      const expiry = decoded.exp * 1000 // convert to ms
+
+      // Store in localStorage
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('token_expiry', expiry.toString())
+      localStorage.setItem('user', JSON.stringify(data.user))
 
       toast.success('Logged in successfully!')
       setTimeout(() => navigate('/'), 1000)
