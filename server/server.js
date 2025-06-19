@@ -6,7 +6,7 @@ import cors from 'cors'
 import foodRoutes from './routes/foodRoute.js'
 import userRoute from './routes/userRoute.js'
 import signUpRoute from './routes/signUpRoute.js'
-
+import tokenRoute from './routes/tokenRoute.js'
 const URL=process.env.MONGODB_URL
 const app = express()
 app.use(cors({
@@ -21,7 +21,7 @@ app.use('/uploads', express.static('/tmp/uploads')) // for Render
 app.use('/api',foodRoutes)
 app.use('/api',userRoute)
 app.use('/api', signUpRoute)
-
+app.use('/api', tokenRoute)
 mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err))

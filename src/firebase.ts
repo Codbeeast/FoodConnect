@@ -10,24 +10,52 @@ const firebaseConfig = {
   vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
 }
 
+// ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig)
 export const messaging = getMessaging(app)
 
-export const requestPermissionAndGetToken = async () => {
+// ✅ Normal async function to request permission and send token
+export const requestPermissionAndGetToken = async (userId: string|null) => {
   try {
-    const token = await getToken(messaging, {
+    const permission = await Notification.requestPermission()
+    if (permission !== "granted") {
+      console.warn("🔕 Notification permission not granted")
+      return null
+    }
+
+    const fcmToken = await getToken(messaging, {
       vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
     })
-    return token
+
+    if (fcmToken) {
+      // console.log("✅ FCM token:", fcmToken)
+     const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+      // Send token to backend
+      await fetch(`${baseURL}/api/save-token`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId, token: fcmToken }),
+      })
+
+      return fcmToken
+    } else {
+      console.warn("⚠️ FCM token is null")
+      return null
+    }
   } catch (error) {
     console.error("❌ Error getting FCM token", error)
     return null
   }
 }
 
+// ✅ Foreground notification listener
 export const listenToMessages = () => {
   onMessage(messaging, (payload) => {
     console.log("🔔 Foreground Message Received:", payload)
-    alert(`${payload.notification?.title}: ${payload.notification?.body}`)
+
+    if (payload?.notification) {
+      const { title, body } = payload.notification
+      alert(`${title}: ${body}`)
+    }
   })
 }

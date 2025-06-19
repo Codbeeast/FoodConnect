@@ -2,10 +2,11 @@ import Food from '../models/food.js'
 import cloudinary from '../utils/cloudinary.js'
 import { v4 as uuidv4 } from 'uuid'
 import fs from 'fs'
-import admin from '../utils/firebaseAdmin.js' // ✅ New
+import admin from '../utils/firebaseAdmin.js' 
+import FcmToken from "../models/token.js"
 
-// Simulated tokens (You should store these in DB in real case)
-let fcmTokens = [] // should be fetched from MongoDB or Redis
+
+
 
 export const postFoodImage = async (req, res) => {
   try {
@@ -25,12 +26,12 @@ export const postFoodImage = async (req, res) => {
       location,
       note,
     })
-
+const allTokens = await FcmToken.find({}, 'token').lean()
+const fcmTokens = allTokens.map(t => t.token)
     // 🔔 Send notification to other users (exclude uploader)
     const recipients = fcmTokens.filter(token => token !== uploaderToken)
-
     if (recipients.length > 0) {
-      const message = {
+        const message = {
         notification: {
           title: "🍱 New Food Uploaded!",
           body: `${foodName} is now available at ${location}`,
@@ -38,7 +39,7 @@ export const postFoodImage = async (req, res) => {
         tokens: recipients,
       }
 
-      await admin.messaging().sendMulticast(message)
+      await admin.messaging().sendEachForMulticast(message)
     }
 
     res.json({ success: true, data: saved })

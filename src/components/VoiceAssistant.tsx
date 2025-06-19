@@ -44,7 +44,7 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
   const [listening, setListening] = useState(false)
   // const [transcript, setTranscript] = useState<string>([])
   const [btn, setBtn] = useState(true)
-  const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+  const baseURL = !import.meta.env.VITE_API_URL || 'http://localhost:5000'
 
   const stepRef = useRef(step)
   const activeRef = useRef(active)
@@ -209,10 +209,10 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
       formData.append('image', imageFile)
     }
 
-    formData.append('foodName', formRef.current.foodName)
-    formData.append('quantity', formRef.current.quantity)
-    formData.append('location', formRef.current.location)
-    formData.append('note', formRef.current.note)
+    formData.append('foodName', "salt")
+    formData.append('quantity', "2")
+    formData.append('location', "jbp")
+    formData.append('note', "no")
     formData.append('uploaderToken', token || '') 
     const res = await fetch(`${baseURL}/api/data`, {
       method: 'POST',

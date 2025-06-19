@@ -1,5 +1,6 @@
 // App.tsx
 import { Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import Navbar from './components/Navbar'
 import Card from './components/Card'
@@ -11,15 +12,27 @@ import Signup from './components/SignUp'
 import Login from './components/Login'
 import { useAuth } from './hooks/useAuth'
 import { Navigate } from 'react-router-dom'
-import {useNotifications} from './hooks/useNotification'
 
+// import {useNotifications} from './hooks/useNotification'
+import { requestPermissionAndGetToken ,listenToMessages} from './firebase'
 const App = () => {
-   useNotifications()
+  //  useNotifications()
+  // requestPermissionAndGetToken()
   const location = useLocation()
   const authPaths = ['/login', '/signup']
   const isAuthPage = authPaths.includes(location.pathname)
 
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated,user } = useAuth()
+  const userId = user?.id // Replace with dynamic ID from auth if needed
+// console.log(user)
+useEffect(() => {
+  const initFCM = async () => {
+    await requestPermissionAndGetToken(userId!)
+    listenToMessages()
+  }
+
+  initFCM()
+}, [])
 
   return (
     <>
