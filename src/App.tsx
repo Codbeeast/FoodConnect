@@ -28,7 +28,7 @@ const App = () => {
   useEffect(() => {
     const initFCM = async () => {
       await requestPermissionAndGetToken(userId!)
-      listenToMessages(userId!)
+      listenToMessages(userId!,isAuthenticated)
       
     }
 

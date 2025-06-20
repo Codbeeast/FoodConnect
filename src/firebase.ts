@@ -13,7 +13,7 @@ const firebaseConfig = {
 // ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig)
 export const messaging = getMessaging(app)
-import { useAuth } from './hooks/useAuth'
+
 // ✅ Normal async function to request permission and send token
 export const requestPermissionAndGetToken = async (userId: string | null) => {
 
@@ -50,8 +50,7 @@ export const requestPermissionAndGetToken = async (userId: string | null) => {
 }
 
 // ✅ Foreground notification listener
-export const listenToMessages = (userId: string | null) => {
-  const { isAuthenticated } = useAuth()
+export const listenToMessages = (userId: string | null,isAuthenticated:boolean) => {
   console.log("isAuthetcated: ",isAuthenticated)
   onMessage(messaging, (payload) => {
     console.log("🔔 Foreground Message Received:", payload)
