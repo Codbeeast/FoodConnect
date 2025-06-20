@@ -29,7 +29,7 @@ export const requestPermissionAndGetToken = async (userId: string|null) => {
 
     if (fcmToken) {
       // console.log("✅ FCM token:", fcmToken)
-     const baseURL = !import.meta.env.VITE_API_URL || 'http://localhost:5000'
+     const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
       // Send token to backend
       await fetch(`${baseURL}/api/save-token`, {
         method: "POST",
