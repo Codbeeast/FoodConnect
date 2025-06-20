@@ -24,23 +24,25 @@ const App = () => {
   const isAuthPage = authPaths.includes(location.pathname)
 
   const { isAuthenticated, user } = useAuth()
-  const userId = user?.id // Replace with dynamic ID from auth if needed
+  // const userId = user?.id // Replace with dynamic ID from auth if needed
 
   useEffect(() => {
+    if (!isAuthenticated || !user?.id) return // 🛑 Wait until user is ready
+
     const initFCM = async () => {
-      await requestPermissionAndGetToken(userId!)
-      listenToMessages(userId!,isAuthenticated)
-      
+      await requestPermissionAndGetToken(user.id)
+      listenToMessages(user.id, isAuthenticated)
     }
 
     initFCM()
-  }, [user,isAuthenticated])
+  }, [user?.id, isAuthenticated])
+
 
   return (
     <>
-    <ToastContainer position="top-center" autoClose={5000} />
+      <ToastContainer position="top-center" autoClose={5000} />
       {!isAuthPage && <Navbar />}
-      
+
       <Toaster position="top-center" reverseOrder={false} />
 
       <Routes>

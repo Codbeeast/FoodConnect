@@ -64,8 +64,8 @@ export const listenToMessages = (userId: string | null,isAuthenticated:boolean) 
     if (!isAuthenticated) return
     if (payload?.notification) {
       const { title, body } = payload.notification
-     toast.info(`${title}: ${body}`)
-      // alert(`${title}: ${body}`)
+     alert(toast.info(`${title}: ${body}`))
+      //  alert(`${title}: ${body}`)
     }
   })
 }
