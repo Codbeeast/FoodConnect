@@ -24,7 +24,8 @@ const App = () => {
 
   const { isAuthenticated,user } = useAuth()
   const userId = user?.id // Replace with dynamic ID from auth if needed
-// console.log(user)
+console.log(user)
+console.log(user?.id)
 useEffect(() => {
   const initFCM = async () => {
     await requestPermissionAndGetToken(userId!)
