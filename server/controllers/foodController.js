@@ -31,13 +31,15 @@ export const postFoodImage = async (req, res) => {
     const fcmTokens = allTokens.map(t => t.token)
     // 🔔 Send notification to other users (exclude uploader)
     const recipients = fcmTokens.filter(token => token !== uploaderToken)
+    let capitalized = (e) => (e.charAt(0).toUpperCase() + e.slice(1))
+
     if (recipients.length > 0) {
       const message = {
 
         notification: {
 
           title: "🍱 New Food Uploaded!",
-          body: `${foodName} is now available at ${location}`,
+          body: `${capitalized(foodName)} is now available at ${capitalized(location)}`,
         },
         data: {
           userId: userId || '', // ✅ required for frontend filtering

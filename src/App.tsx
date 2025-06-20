@@ -12,7 +12,8 @@ import Signup from './components/SignUp'
 import Login from './components/Login'
 import { useAuth } from './hooks/useAuth'
 import { Navigate } from 'react-router-dom'
-
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 // import {useNotifications} from './hooks/useNotification'
 import { requestPermissionAndGetToken, listenToMessages } from './firebase'
 const App = () => {
@@ -37,7 +38,9 @@ const App = () => {
 
   return (
     <>
+    <ToastContainer position="top-center" autoClose={5000} />
       {!isAuthPage && <Navbar />}
+      
       <Toaster position="top-center" reverseOrder={false} />
 
       <Routes>
