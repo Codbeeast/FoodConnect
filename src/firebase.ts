@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app"
 import { getMessaging, getToken, onMessage } from "firebase/messaging"
-import {toast} from 'react-toastify'
+import toast from 'react-hot-toast'
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -30,9 +30,8 @@ export const requestPermissionAndGetToken = async (userId: string | null) => {
     })
 
     if (fcmToken) {
-      // console.log("✅ FCM token:", fcmToken)
       const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
-      // Send token to backend
+
       await fetch(`${baseURL}/api/save-token`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -49,23 +48,24 @@ export const requestPermissionAndGetToken = async (userId: string | null) => {
     return null
   }
 }
-
-// ✅ Foreground notification listener
-export const listenToMessages = (userId: string | null,isAuthenticated:boolean) => {
-   
-  console.log("isAuthetcated: ",isAuthenticated)
+export const listenToMessages = (userId: string | null, isAuthenticated: boolean) => {
   onMessage(messaging, (payload) => {
-    console.log("🔔 Foreground Message Received:", payload)
-
     const senderId = payload?.data?.userId
-    console.log("senderId: ", senderId)
-    console.log("userId: ", userId)
-    if (senderId === userId) return // ✅ Ignore if it's from self
     if (!isAuthenticated) return
+    if (senderId === userId) return
     if (payload?.notification) {
       const { title, body } = payload.notification
-     toast.info(`${title}: ${body}`)
-      //  alert(`${title}: ${body}`)
+
+      toast.success(`${title}: ${body}`, {
+        duration: 5000,
+        position: 'top-right',
+        icon: '📢',
+        style: {
+          border: '1px solid #4ade80',
+          padding: '16px',
+          color: '#16a34a',
+        }
+      })
     }
   })
 }

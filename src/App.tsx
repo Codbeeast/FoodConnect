@@ -12,22 +12,16 @@ import Signup from './components/SignUp'
 import Login from './components/Login'
 import { useAuth } from './hooks/useAuth'
 import { Navigate } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-// import {useNotifications} from './hooks/useNotification'
 import { requestPermissionAndGetToken, listenToMessages } from './firebase'
 const App = () => {
-  //  useNotifications()
-  // requestPermissionAndGetToken()
   const location = useLocation()
   const authPaths = ['/login', '/signup']
   const isAuthPage = authPaths.includes(location.pathname)
 
   const { isAuthenticated, user } = useAuth()
-  // const userId = user?.id // Replace with dynamic ID from auth if needed
 
   useEffect(() => {
-    if (!isAuthenticated || !user?.id) return // 🛑 Wait until user is ready
+    if (!isAuthenticated || !user?.id) return 
 
     const initFCM = async () => {
       await requestPermissionAndGetToken(user.id)
@@ -40,7 +34,6 @@ const App = () => {
 
   return (
     <>
-      <ToastContainer position="top-center" autoClose={5000} />
       {!isAuthPage && <Navbar />}
 
       <Toaster position="top-center" reverseOrder={false} />

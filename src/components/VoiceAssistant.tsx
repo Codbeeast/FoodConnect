@@ -40,6 +40,7 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
   const formSectionRef = useRef<HTMLDivElement | null>(null)
   const {user}=useAuth()
   const userId=user?.id
+  const fullName=user?.name
   const [form, setForm] = useState({ image: '', foodName: '', quantity: '', location: '', note: '' })
   const [step, setStep] = useState(0)
   const [active, setActive] = useState(false)
@@ -217,7 +218,7 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
     formData.append('note', "no")
     formData.append('uploaderToken', token || '') 
     formData.append('userId', userId!)
-    console.log("userId: ",userId)
+    formData.append('fullName', fullName!)
     const res = await fetch(`${baseURL}/api/data`, {
       method: 'POST',
       body: formData,

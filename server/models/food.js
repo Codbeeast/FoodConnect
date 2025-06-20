@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 const foodSchema = new mongoose.Schema({
+  fullName: String,
   userId  : String,
   imageUrl: String,
   foodName: String,
@@ -14,5 +15,5 @@ const foodSchema = new mongoose.Schema({
 }, {
   timestamps: true
 })
-
+ 
 export default mongoose.model('fooddata', foodSchema)
