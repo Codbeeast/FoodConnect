@@ -33,7 +33,7 @@ const App = () => {
     }
 
     initFCM()
-  }, [user])
+  }, [user,isAuthenticated])
 
   return (
     <>

@@ -13,9 +13,10 @@ const firebaseConfig = {
 // ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig)
 export const messaging = getMessaging(app)
-
+import { useAuth } from './hooks/useAuth'
 // ✅ Normal async function to request permission and send token
-export const requestPermissionAndGetToken = async (userId: string|null) => {
+export const requestPermissionAndGetToken = async (userId: string | null) => {
+
   try {
     const permission = await Notification.requestPermission()
     if (permission !== "granted") {
@@ -29,7 +30,7 @@ export const requestPermissionAndGetToken = async (userId: string|null) => {
 
     if (fcmToken) {
       // console.log("✅ FCM token:", fcmToken)
-     const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+      const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
       // Send token to backend
       await fetch(`${baseURL}/api/save-token`, {
         method: "POST",
@@ -50,14 +51,16 @@ export const requestPermissionAndGetToken = async (userId: string|null) => {
 
 // ✅ Foreground notification listener
 export const listenToMessages = (userId: string | null) => {
+  const { isAuthenticated } = useAuth()
+  console.log("isAuthetcated: ",isAuthenticated)
   onMessage(messaging, (payload) => {
     console.log("🔔 Foreground Message Received:", payload)
 
     const senderId = payload?.data?.userId
     console.log("senderId: ", senderId)
-    console.log("userId: ",userId)
+    console.log("userId: ", userId)
     if (senderId === userId) return // ✅ Ignore if it's from self
-
+    if (!isAuthenticated) return
     if (payload?.notification) {
       const { title, body } = payload.notification
       alert(`${title}: ${body}`)
