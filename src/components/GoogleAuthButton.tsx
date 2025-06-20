@@ -67,9 +67,16 @@ const GoogleButton: React.FC<Props> = ({ text = 'Continue with Google' }) => {
           picture: user.picture,
         }),
       })
+      const result = await res.json()
+      const storedUser = JSON.parse(localStorage.getItem('user')!)
+      console.log("result:",result.user)
+      storedUser.userId = result?.user?._id
+      console.log(storedUser)
+      localStorage.setItem('user', JSON.stringify(storedUser))
       toast.dismiss(loadingToast) 
       if (!res.ok) {
-       
+        const result = await res.json()
+         console.log(result)
       } else {
         const result = await res.json()
         result

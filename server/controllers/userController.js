@@ -2,7 +2,7 @@ import User from '../models/user.js'
 
 export const postUser=async (req, res) => {
   const { name, email } = req.body
-  
+  console.log("helloooo")
 
   try {
     let user = await User.findOne({ email })
