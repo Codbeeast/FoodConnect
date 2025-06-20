@@ -55,13 +55,17 @@ export const listenToMessages = (userId: string | null,isAuthenticated:boolean) 
    
   console.log("isAuthetcated: ",isAuthenticated)
   onMessage(messaging, (payload) => {
+    console.log("🔔 Foreground Message Received:", payload)
+
     const senderId = payload?.data?.userId
+    console.log("senderId: ", senderId)
+    console.log("userId: ", userId)
     if (senderId === userId) return // ✅ Ignore if it's from self
     if (!isAuthenticated) return
     if (payload?.notification) {
       const { title, body } = payload.notification
      toast.info(`${title}: ${body}`)
-      
+      // alert(`${title}: ${body}`)
     }
   })
 }
