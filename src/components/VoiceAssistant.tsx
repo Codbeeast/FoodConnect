@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import toast from 'react-hot-toast';
+import { useAuth } from '@/hooks/useAuth';
 type Props = {
   imageFile: File | null
   selectedImage: string | null
@@ -37,7 +38,8 @@ recognition.lang = 'en-US'
 
 const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) => {
   const formSectionRef = useRef<HTMLDivElement | null>(null)
-
+  const {user}=useAuth()
+  const userId=user?.id
   const [form, setForm] = useState({ image: '', foodName: '', quantity: '', location: '', note: '' })
   const [step, setStep] = useState(0)
   const [active, setActive] = useState(false)
@@ -214,6 +216,8 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
     formData.append('location', "jbp")
     formData.append('note', "no")
     formData.append('uploaderToken', token || '') 
+    formData.append('userId', userId!)
+    console.log("userId: ",userId)
     const res = await fetch(`${baseURL}/api/data`, {
       method: 'POST',
       body: formData,
@@ -224,9 +228,11 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
     if (res.ok) {
       toast.success('✅ Thank you! Submission successful.')
       onSubmitSuccess() // Go back to Card
+      exit()
     } else {
       toast.error('❌ Submission failed.')
       onSubmitSuccess()
+      exit()
     }
 
   } catch (err) {
@@ -234,6 +240,7 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
     toast.dismiss(loadingToast)
     toast.error('❌ Error during submission.')
     onSubmitSuccess()
+    exit()
   }
 
   setForm({

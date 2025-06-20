@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 const foodSchema = new mongoose.Schema({
+  userId  : String,
   imageUrl: String,
   foodName: String,
   quantity: String,

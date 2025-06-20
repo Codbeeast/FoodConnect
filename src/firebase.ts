@@ -29,7 +29,7 @@ export const requestPermissionAndGetToken = async (userId: string|null) => {
 
     if (fcmToken) {
       // console.log("✅ FCM token:", fcmToken)
-     const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+     const baseURL = !import.meta.env.VITE_API_URL || 'http://localhost:5000'
       // Send token to backend
       await fetch(`${baseURL}/api/save-token`, {
         method: "POST",
@@ -49,9 +49,14 @@ export const requestPermissionAndGetToken = async (userId: string|null) => {
 }
 
 // ✅ Foreground notification listener
-export const listenToMessages = () => {
+export const listenToMessages = (userId: string | null) => {
   onMessage(messaging, (payload) => {
     console.log("🔔 Foreground Message Received:", payload)
+
+    const senderId = payload?.data?.userId
+    console.log("senderId: ", senderId)
+    console.log("userId: ",userId)
+    if (senderId === userId) return // ✅ Ignore if it's from self
 
     if (payload?.notification) {
       const { title, body } = payload.notification

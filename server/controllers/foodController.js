@@ -2,7 +2,7 @@ import Food from '../models/food.js'
 import cloudinary from '../utils/cloudinary.js'
 import { v4 as uuidv4 } from 'uuid'
 import fs from 'fs'
-import admin from '../utils/firebaseAdmin.js' 
+import admin from '../utils/firebaseAdmin.js'
 import FcmToken from "../models/token.js"
 
 
@@ -17,24 +17,30 @@ export const postFoodImage = async (req, res) => {
 
     fs.unlinkSync(req.file.path)
 
-    const { foodName, quantity, location, note, uploaderToken } = req.body
+    const { foodName, quantity, location, note, uploaderToken, userId } = req.body
 
     const saved = await Food.create({
+      userId,
       imageUrl: result.secure_url,
       foodName,
       quantity,
       location,
       note,
     })
-const allTokens = await FcmToken.find({}, 'token').lean()
-const fcmTokens = allTokens.map(t => t.token)
+    const allTokens = await FcmToken.find({}, 'token').lean()
+    const fcmTokens = allTokens.map(t => t.token)
     // 🔔 Send notification to other users (exclude uploader)
     const recipients = fcmTokens.filter(token => token !== uploaderToken)
     if (recipients.length > 0) {
-        const message = {
+      const message = {
+
         notification: {
+
           title: "🍱 New Food Uploaded!",
           body: `${foodName} is now available at ${location}`,
+        },
+        data: {
+          userId: userId || '', // ✅ required for frontend filtering
         },
         tokens: recipients,
       }
