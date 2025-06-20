@@ -14,7 +14,7 @@ import { useAuth } from './hooks/useAuth'
 import { Navigate } from 'react-router-dom'
 
 // import {useNotifications} from './hooks/useNotification'
-import { requestPermissionAndGetToken ,listenToMessages} from './firebase'
+import { requestPermissionAndGetToken, listenToMessages } from './firebase'
 const App = () => {
   //  useNotifications()
   // requestPermissionAndGetToken()
@@ -22,18 +22,18 @@ const App = () => {
   const authPaths = ['/login', '/signup']
   const isAuthPage = authPaths.includes(location.pathname)
 
-  const { isAuthenticated,user } = useAuth()
+  const { isAuthenticated, user } = useAuth()
   const userId = user?.id // Replace with dynamic ID from auth if needed
-console.log(user)
-console.log(user?.id)
-useEffect(() => {
-  const initFCM = async () => {
-    await requestPermissionAndGetToken(userId!)
-    listenToMessages(userId!)
-  }
 
-  initFCM()
-}, [])
+  useEffect(() => {
+    const initFCM = async () => {
+      await requestPermissionAndGetToken(userId!)
+      listenToMessages(userId!)
+      
+    }
+
+    initFCM()
+  }, [user])
 
   return (
     <>
@@ -73,7 +73,7 @@ useEffect(() => {
             </>
           }
         />
-       
+
       </Routes>
     </>
   )
