@@ -212,10 +212,10 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
       formData.append('image', imageFile)
     }
 
-    formData.append('foodName', "salt")
-    formData.append('quantity', "2")
-    formData.append('location', "jbp")
-    formData.append('note', "no")
+    formData.append('foodName', form.foodName)
+    formData.append('quantity', form.quantity)
+    formData.append('location', form.location)
+    formData.append('note', form.note)
     formData.append('uploaderToken', token || '') 
     formData.append('userId', userId!)
     formData.append('fullName', fullName!)

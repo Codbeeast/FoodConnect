@@ -32,7 +32,6 @@ const FoodGallery = ({ onClose }: FoodGalleryProps) => {
         const res = await fetch(`${baseURL}/api/foodData`)
         if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`)
         const data = await res.json()
-
         // ✅ Fix: handle array directly
         setFoodItems(Array.isArray(data) ? data : [])
       } catch (err: unknown) {
