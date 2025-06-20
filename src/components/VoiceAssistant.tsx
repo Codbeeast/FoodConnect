@@ -46,7 +46,7 @@ const VoiceAssistant = ({ imageFile, selectedImage, onSubmitSuccess }: Props) =>
   const [listening, setListening] = useState(false)
   // const [transcript, setTranscript] = useState<string>([])
   const [btn, setBtn] = useState(true)
-  const baseURL = !import.meta.env.VITE_API_URL || 'http://localhost:5000'
+  const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 
   const stepRef = useRef(step)
   const activeRef = useRef(active)
